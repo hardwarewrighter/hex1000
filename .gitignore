@@ -1,0 +1,6 @@
+/work/
+/target/
+/bin/
+__pycache__/
+*.pyc
+*.tdb*
