@@ -1,0 +1,22 @@
+{
+  "project": "Tang Nano 1K - Keypad, Buttons & MAX7219",
+  "connections": [
+    {"from": "TANG_1K:5V", "to": "MAX7219:VCC"},
+    {"from": "TANG_1K:GND", "to": ["MAX7219:GND", "BUTTON_STRIP:GND"]},
+    {"from": "TANG_1K:PIN17", "to": "MAX7219:DIN"},
+    {"from": "TANG_1K:PIN18", "to": "MAX7219:CS"},
+    {"from": "TANG_1K:PIN19", "to": "MAX7219:CLK"},
+    {"from": "TANG_1K:PIN25", "to": "KEYPAD:R1"},
+    {"from": "TANG_1K:PIN26", "to": "KEYPAD:R2"},
+    {"from": "TANG_1K:PIN27", "to": "KEYPAD:R3"},
+    {"from": "TANG_1K:PIN28", "to": "KEYPAD:R4"},
+    {"from": "TANG_1K:PIN31", "to": "KEYPAD:C1"},
+    {"from": "TANG_1K:PIN32", "to": "KEYPAD:C2"},
+    {"from": "TANG_1K:PIN33", "to": "KEYPAD:C3"},
+    {"from": "TANG_1K:PIN34", "to": "KEYPAD:C4"},
+    {"from": "TANG_1K:PIN38", "to": "BUTTON_STRIP:K1"},
+    {"from": "TANG_1K:PIN39", "to": "BUTTON_STRIP:K2"},
+    {"from": "TANG_1K:PIN40", "to": "BUTTON_STRIP:K3"},
+    {"from": "TANG_1K:PIN41", "to": "BUTTON_STRIP:K4"}
+  ]
+}

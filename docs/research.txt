@@ -1,0 +1,127 @@
+Conversation with Gemini
+tang nano 1k comes with two 20-pin headers, but there are only 19 holes on each side, with a 20th hole on each side next to the row. Do I need to break off one pin from each header and connect to that out-of-line hole on each side? This seems to prevent using a pluggable breadboard
+
+No, do not snap a pin off to insert into that offset single hole.
+
+The board features 19 main through-holes aligned on standard 
+2.54 mm grid pitch on each edge. You should trim or snap the provided 20-pin headers down to 19 pins so they fit the linear rows cleanly.
+
+Tang Nano 1K official pinout diagram, AI generated
+Tang Nano 1K official pinout diagram. Source: Sipeed Wiki
+Why that offset hole exists
+Alternative Connector Footprints: That offset hole (along with adjacent pads) is placed specifically for auxiliary connectors, surface-mount components, or specialized test points (such as JTAG signals, external crystal pads, or JST battery/power connectors).
+
+Breadboard Grid Alignment: The 19-pin side rows align directly with the standard 
+0.1 in (
+2.54 mm) grid of solderless breadboards. Bending or routing a pin out into that staggered hole would distort the header, prevent the board from sitting flush, and risk shorting neighboring traces.
+
+Recommended Steps
+Snap or cut off the extra 20th pin from each strip so you have two 19-pin header strips.
+
+Insert the 19-pin strips into the main side rows.
+
+Solder the headers in place. The board will plug cleanly into a standard breadboard without issue.
+
+okay I have the headers soldered. I have 3 devices I want to add. One is a 4x4 keypad with rows and column connectors c1-4, r1-4, for entering hex digits 0-F, and one 4-row butons, gnd pin plus 4 pins k1-k4. I have a 8 digit 7-segment display SPI MAX7219 with 5 pins. How do I connect this to the tang nano 1K? need a diagram and pin numbers for each connection. If you can export a file that I can use with a free web editor or open source app i can install on linux, like frtiz, that would help
+
+Here is a clear wiring guide and netlist to connect your 3 devices—a 4x4 Hex Keypad, a 4-Button Strip, and an 8-Digit MAX7219 7-Segment Display—to the Tang Nano 1K (GW1NZ-1 FPGA).   
+Manuals.plus
+
+Below the physical wiring table, you will find instructions on exporting this layout into Fritzing (or any open-source tool like KiCad) on Linux.
+
+Hardware Connections & Pinout Map
+1. Power Rails
+5V / VBUS: Connect the MAX7219 
+V 
+CC
+​
+  pin to the 5V header pin on the Tang Nano 1K.
+
+3.3V: Keypad pull-ups/inputs use the FPGA's native 3.3V logic levels.
+
+GND: Connect MAX7219 GND and the 4-Button strip GND to any GND pin on the board.
+
+2. Detailed Pin Connection Table
+Peripheral	Signal	Tang Nano 1K Pin	FPGA Ball / Pad	Notes
+Power	5V / VBUS	5V Pin	V 
+BUS
+​
+ 	Power for MAX7219 (5 V)
+GND	GND Pin	GND	Common Ground for Display & Keypad
+MAX7219 Display	VCC	5V Pin	V 
+BUS
+​
+ 	5 V logic / power rail
+(SPI 8-Digit)	GND	GND Pin	GND	Ground
+DIN (MOSI)	Pin 17	IOR2A	Hardware SPI Data Out
+CS (LOAD)	Pin 18	IOR2B	SPI Chip Select
+CLK	Pin 19	IOR3A	SPI Clock Out
+4x4 Keypad	R1 (Row 1)	Pin 25	IOT5A	Standard GPIO (Output/Drive)
+(Hex 0-F)	R2 (Row 2)	Pin 26	IOT5B	Standard GPIO (Output/Drive)
+R3 (Row 3)	Pin 27	IOT6A	Standard GPIO (Output/Drive)
+R4 (Row 4)	Pin 28	IOT6B	Standard GPIO (Output/Drive)
+C1 (Col 1)	Pin 31	IOT10A	Standard GPIO (Input with Pull-Down)
+C2 (Col 2)	Pin 32	IOT10B	Standard GPIO (Input with Pull-Down)
+C3 (Col 3)	Pin 33	IOT11A	Standard GPIO (Input with Pull-Down)
+C4 (Col 4)	Pin 34	IOT11B	Standard GPIO (Input with Pull-Down)
+4-Button Strip	GND	GND Pin	GND	Common Button Return
+(K1–K4)	K1	Pin 38	IOT15A	Input (Enable FPGA PULL_MODE=UP)
+K2	Pin 39	IOT15B	Input (Enable FPGA PULL_MODE=UP)
+K3	Pin 40	IOT16A	Input (Enable FPGA PULL_MODE=UP)
+K4	Pin 41	IOT16B	Input (Enable FPGA PULL_MODE=UP)
+Note on Button Pull-ups: Configure pins 38–41 in your Gowin Physical Constraints (.cst) file with PULL_MODE=UP so pressing a button connects the pin to GND safely without requiring external resistors.
+
+Exporting / Using in Fritzing & Linux EDA Software
+To edit this schematic on Linux using Fritzing or KiCad:
+
+Option A: Fritzing (.fzz / Netlist)
+Fritzing is an easy open-source tool for breadboard layout on Linux (sudo apt install fritzing).
+
+Download the Tang Nano 1K Fritzing Part (.fzpz) from the official Sipeed GitHub hardware repo:
+Sipeed/TangNano-1K-Hardware 
+→ Fritzing_Parts
+
+Search for standard community parts inside Fritzing:
+
+MAX7219 7-Segment 8-Digit Display
+
+4x4 Matrix Keypad
+
+4-Button Module / Switch
+
+Open Fritzing, click File > Open, load the .fzpz board part, and wire the connections according to the pin table above in the Breadboard View.
+
+Option B: Open Netlist (.net / .json format)
+Below is an open JSON netlist representation of these connections. You can paste this directly into tools like KiCad, Schemdraw (Python script for schematics on Linux), or web design tools like Wokwi / EasyEDA:
+
+JSON
+{
+  "project": "Tang Nano 1K - Keypad, Buttons & MAX7219",
+  "connections": [
+    {"from": "TANG_1K:5V", "to": "MAX7219:VCC"},
+    {"from": "TANG_1K:GND", "to": ["MAX7219:GND", "BUTTON_STRIP:GND"]},
+    {"from": "TANG_1K:PIN17", "to": "MAX7219:DIN"},
+    {"from": "TANG_1K:PIN18", "to": "MAX7219:CS"},
+    {"from": "TANG_1K:PIN19", "to": "MAX7219:CLK"},
+    {"from": "TANG_1K:PIN25", "to": "KEYPAD:R1"},
+    {"from": "TANG_1K:PIN26", "to": "KEYPAD:R2"},
+    {"from": "TANG_1K:PIN27", "to": "KEYPAD:R3"},
+    {"from": "TANG_1K:PIN28", "to": "KEYPAD:R4"},
+    {"from": "TANG_1K:PIN31", "to": "KEYPAD:C1"},
+    {"from": "TANG_1K:PIN32", "to": "KEYPAD:C2"},
+    {"from": "TANG_1K:PIN33", "to": "KEYPAD:C3"},
+    {"from": "TANG_1K:PIN34", "to": "KEYPAD:C4"},
+    {"from": "TANG_1K:PIN38", "to": "BUTTON_STRIP:K1"},
+    {"from": "TANG_1K:PIN39", "to": "BUTTON_STRIP:K2"},
+    {"from": "TANG_1K:PIN40", "to": "BUTTON_STRIP:K3"},
+    {"from": "TANG_1K:PIN41", "to": "BUTTON_STRIP:K4"}
+  ]
+}
+
+
+
+
+Your Michael A. Wright chats aren’t used to improve our models. Gemini is AI and can make mistakes. Your privacy & GeminiOpens in a new window
+
+Searching the web
+`
