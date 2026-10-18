@@ -19,6 +19,14 @@ key legends and connector order, the K1-K4 operator order, display
 module pin labels, level-shifter wiring and power source together.
 The existing netlist is not an approved wiring plan.
 
+## Proposed connection choices
+
+hex1000.net records the user's proposed assignments and is the starting
+point for verification and the software pin map. Preserve those choices
+where valid; identify specific conflicts and explain any needed changes
+before wiring. Package pad numbers and physical header positions must
+be distinguished during verification.
+
 ## Wiring status
 
 The original docs/research.txt conversation and hex1000.net are unverified
