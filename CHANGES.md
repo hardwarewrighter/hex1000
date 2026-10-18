@@ -2,6 +2,14 @@
 
 ## 2026-10-18
 
+- Hardware: correct keypad R1/R2 to FPGA package pins 15/16 in the
+  netlist and docs; include the MAX7219 level shifter and distinguish
+  package pins from header positions and programmer GPIO.
+
+- Docs: verify proposed keypad pins 25/26 are power/ground, document
+  the candidate replacements and configuration-pin checks, and align
+  keypad directions with the Mac front-panel plan.
+
 - Docs: implementation notes (docs/implementation-notes.md): the user's
   keypad legends and K1-K4 order, the key map onto the machine's scan,
   the front-panel design (scan, debounce, MAX7219 stream), what in

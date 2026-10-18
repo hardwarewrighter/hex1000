@@ -1,22 +1,108 @@
 {
   "project": "Tang Nano 1K - Keypad, Buttons & MAX7219",
   "connections": [
-    {"from": "TANG_1K:5V", "to": "MAX7219:VCC"},
-    {"from": "TANG_1K:GND", "to": ["MAX7219:GND", "BUTTON_STRIP:GND"]},
-    {"from": "TANG_1K:PIN17", "to": "MAX7219:DIN"},
-    {"from": "TANG_1K:PIN18", "to": "MAX7219:CS"},
-    {"from": "TANG_1K:PIN19", "to": "MAX7219:CLK"},
-    {"from": "TANG_1K:PIN25", "to": "KEYPAD:R1"},
-    {"from": "TANG_1K:PIN26", "to": "KEYPAD:R2"},
-    {"from": "TANG_1K:PIN27", "to": "KEYPAD:R3"},
-    {"from": "TANG_1K:PIN28", "to": "KEYPAD:R4"},
-    {"from": "TANG_1K:PIN31", "to": "KEYPAD:C1"},
-    {"from": "TANG_1K:PIN32", "to": "KEYPAD:C2"},
-    {"from": "TANG_1K:PIN33", "to": "KEYPAD:C3"},
-    {"from": "TANG_1K:PIN34", "to": "KEYPAD:C4"},
-    {"from": "TANG_1K:PIN38", "to": "BUTTON_STRIP:K1"},
-    {"from": "TANG_1K:PIN39", "to": "BUTTON_STRIP:K2"},
-    {"from": "TANG_1K:PIN40", "to": "BUTTON_STRIP:K3"},
-    {"from": "TANG_1K:PIN41", "to": "BUTTON_STRIP:K4"}
+    {
+      "from": "TANG_1K:5V",
+      "to": [
+        "MAX7219:VCC",
+        "74AHCT125:VCC"
+      ]
+    },
+    {
+      "from": "TANG_1K:GND",
+      "to": [
+        "MAX7219:GND",
+        "BUTTON_STRIP:GND",
+        "74AHCT125:GND",
+        "74AHCT125:OE1_N",
+        "74AHCT125:OE2_N",
+        "74AHCT125:OE3_N",
+        "74AHCT125:A4"
+      ]
+    },
+    {
+      "from": "TANG_1K:PIN17",
+      "to": "74AHCT125:A1"
+    },
+    {
+      "from": "TANG_1K:PIN18",
+      "to": "74AHCT125:A2"
+    },
+    {
+      "from": "TANG_1K:PIN19",
+      "to": "74AHCT125:A3"
+    },
+    {
+      "from": "TANG_1K:PIN15",
+      "to": "KEYPAD:R1"
+    },
+    {
+      "from": "TANG_1K:PIN16",
+      "to": "KEYPAD:R2"
+    },
+    {
+      "from": "TANG_1K:PIN27",
+      "to": "KEYPAD:R3"
+    },
+    {
+      "from": "TANG_1K:PIN28",
+      "to": "KEYPAD:R4"
+    },
+    {
+      "from": "TANG_1K:PIN31",
+      "to": "KEYPAD:C1"
+    },
+    {
+      "from": "TANG_1K:PIN32",
+      "to": "KEYPAD:C2"
+    },
+    {
+      "from": "TANG_1K:PIN33",
+      "to": "KEYPAD:C3"
+    },
+    {
+      "from": "TANG_1K:PIN34",
+      "to": "KEYPAD:C4"
+    },
+    {
+      "from": "TANG_1K:PIN38",
+      "to": "BUTTON_STRIP:K1"
+    },
+    {
+      "from": "TANG_1K:PIN39",
+      "to": "BUTTON_STRIP:K2"
+    },
+    {
+      "from": "TANG_1K:PIN40",
+      "to": "BUTTON_STRIP:K3"
+    },
+    {
+      "from": "TANG_1K:PIN41",
+      "to": "BUTTON_STRIP:K4"
+    },
+    {
+      "from": "74AHCT125:Y1",
+      "to": "MAX7219:DIN"
+    },
+    {
+      "from": "74AHCT125:Y2",
+      "to": "MAX7219:CS"
+    },
+    {
+      "from": "74AHCT125:Y3",
+      "to": "MAX7219:CLK"
+    },
+    {
+      "from": "74AHCT125:VCC",
+      "to": "74AHCT125:OE4_N"
+    }
+  ],
+  "pin_numbering": "TANG_1K:PINnn means GW1NZ-1 QFN48 FPGA package pin, not header position or BL702 GPIO",
+  "status": "Corrected package-pin proposal; final constraints, header mapping and hardware validation pending",
+  "notes": [
+    "74AHCT125 channel labels are logical terminals; map them to the exact chip or module package before wiring. Unused Y4 is unconnected.",
+    "Place decoupling at the level shifter and display; verify supply capacity and do not attach an independent 5 V source while USB is powering the board.",
+    "R1-R4 are active-low scan outputs, high impedance when inactive; C1-C4 and K1-K4 are pulled-up inputs.",
+    "Keypad rows need the planned series resistors; their values and exact header positions belong in the final wiring diagram."
   ]
 }

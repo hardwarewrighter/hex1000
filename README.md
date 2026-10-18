@@ -47,6 +47,7 @@ The scripts also run directly without just.
 | docs/implementation-notes.md | Key map, front-panel design, netlist corrections, pins to verify |
 | docs/provenance.md | Import source, pins and artifact limitations |
 
-See [the hardware plan](docs/hardware.md) before using the original
-hex1000.net wiring proposal. It has unverified pin numbers and omits
-the display level shifter. It is preserved as research, not constraints.
+See [the hardware plan](docs/hardware.md) before using the corrected
+hex1000.net connection proposal. It uses FPGA package pins (R1/R2 on
+15/16) and includes the display level shifter; header mapping and
+configuration-pin handling still need verification.

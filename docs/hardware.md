@@ -21,6 +21,9 @@ The existing netlist is not an approved wiring plan.
 
 ## Proposed connection choices
 
+See [the pin review](pin-review.md): original FPGA pins 25 and 26 are
+power and ground. The corrected netlist uses 15 and 16 for R1 and R2.
+
 hex1000.net records the user's proposed assignments and is the starting
 point for verification and the software pin map. Preserve those choices
 where valid; identify specific conflicts and explain any needed changes
@@ -29,10 +32,10 @@ be distinguished during verification.
 
 ## Wiring status
 
-The original docs/research.txt conversation and hex1000.net are unverified
-research. Their PIN numbers have not been reconciled with the board
-revision, package pads and header positions. Do not turn them directly
-into a constraints file. The JSON .net file is a custom connection list,
+The original docs/research.txt conversation is historical research.
+hex1000.net now records corrected FPGA package pins, but board revision,
+header positions and final constraints still require reconciliation.
+The JSON .net file is a custom connection list,
 not a KiCad or Fritzing schematic.
 
 Before assigning pins, check the board schematic, package pinout,
@@ -44,18 +47,18 @@ Exclude JTAG, clock and board-driven signals from peripheral assignments.
 
 | Peripheral | Signals | Behavior |
 | ---------- | ------- | -------- |
-| Hex keypad | C1-C4 outputs, R1-R4 inputs | Scan columns, read rows with pull-ups; debounce and translate to the machine's K inputs |
+| Hex keypad | R1-R4 outputs, C1-C4 inputs | Scan rows low, read columns with pull-ups; debounce and translate to the machine's K inputs |
 | Operator strip | K1-K4 inputs, common GND | Active low, pull-ups; map to +, -, *, = |
 | MAX7219 | DIN, CLK, LOAD outputs; VCC, GND | Eight digits, no-decode mode, software hex font |
 
 Confirm the keypad connector order by continuity measurement. Its
 physical labels do not establish the machine's logical key mapping.
-Drive inactive columns high impedance or use suitable current limiting;
+Drive inactive rows high impedance or use suitable current limiting;
 multiple simultaneous keys must not short opposing FPGA outputs.
 
 The FPGA uses 3.3 V I/O. The intended 5 V MAX7219 interface includes a
-74AHCT125 at 5 V on DIN, CLK and LOAD, with common ground. The original
-netlist's direct display connections omit that part. Final wiring,
+74AHCT125 at 5 V on DIN, CLK and LOAD, with common ground. The corrected
+netlist includes that part with logical channel terminal names. Final wiring,
 power sourcing and component values must be documented with the board
 and module datasheets before hardware bring-up.
 

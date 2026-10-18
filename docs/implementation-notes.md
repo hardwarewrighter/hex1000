@@ -5,6 +5,13 @@ for whoever wires, builds and programs the Nano 1K. What is decided,
 what in hex1000.net needs changing, and what still has to be verified
 with the tools on the Linux machine before anything is wired or loaded.
 
+## Linux verification follow-up
+
+See [pin-review.md](pin-review.md). QFN48 package pins 25 and 26 are
+VCCIO1 and VSS, not user I/O. The conditional choice below is resolved:
+do not use 25/26 for the keypad. The netlist now uses pins 15/16 instead, with configuration-pin handling
+still to be verified.
+
 ## Decided by the user
 
 | Item | Decision |
@@ -88,16 +95,17 @@ as Verilog checked clock for clock against that model:
   is about 480 kHz (the MAX7219 accepts 10 MHz) and the whole display is
   rewritten about 2000 times a second.
 
-## hex1000.net: what is wrong or missing
+## Original hex1000.net review and corrections
 
-The proposal (from docs/research.txt) mostly uses real user I/O. These
-items need changing or checking:
+The original proposal (from docs/research.txt) was reviewed below.
+The current hex1000.net corrects R1/R2 to 15/16 and includes the
+74AHCT125 signal paths and power. Remaining checks still apply.
 
 | # | In hex1000.net | Problem | Recommendation |
 | - | -------------- | ------- | -------------- |
 | 1 | MAX7219 DIN, CS, CLK straight to pins 17, 18, 19 | The FPGA drives 3.3 V; the MAX7219 at 5 V wants at least 3.5 V for a high. It often works, unreliably | Through a 74AHCT125 (or 74HCT125/HCT245) powered at 5 V: FPGA pin to A, Y to the MAX7219, its OE pins to ground. Keep pins 17, 18, 19 |
 | 2 | Keypad columns described as inputs with pull-down, rows driven | The module drives one row low at a time and reads the columns with pull-ups (a pressed key reads 0) | Rows R1 to R4 outputs (high impedance when not selected), columns C1 to C4 inputs with `PULL_MODE=UP` |
-| 3 | Keypad R1, R2 on pins 25, 26 | Neither is confirmed as user I/O by any published Nano 1K constraint file found (Sipeed's examples, Apicula's, community projects); 26 appears only commented out in one community list. They may be special-purpose or not on the header | Keep them if the Apicula check below lists 25 and 26 as ordinary I/O on this package. Otherwise use pins 15 and 16 (user I/O in Sipeed's own LCD example) for R1 and R2 |
+| 3 | Original keypad R1, R2 on pins 25, 26 | QFN48 pin 25 is VCCIO1 and 26 is VSS; neither is GPIO | Fixed in hex1000.net: R1 on 15, R2 on 16 |
 | 4 | Pins 27, 28, 31-34 (keypad), 38-41 (strip), 17-19 (display) | Confirmed as user I/O in Sipeed's LCD example constraints (15-24, 27-35) and Apicula's tangnano1k.cst (38-41) | Keep |
 | 5 | Operator strip K1-K4 on 38-41 with `PULL_MODE=UP` | Correct. Note Apicula's examples also use 39/40 as an LVDS pair and 40/41 for other tests: plain LVCMOS33 inputs are fine | Keep: K1 + (38), K2 - (39), K3 * (40), K4 = (41) |
 | 6 | MAX7219 VCC from the board's "5V" pin | Check the Nano 1K actually brings 5 V (USB VBUS) to a header pin and how much current it can supply; the display can draw 150 mA or more at high intensity | Measure the pin; intensity 4 keeps current modest |
@@ -113,8 +121,8 @@ Sipeed's LCD constraints) and the JTAG pins.
 | Signal | Package pin | Direction | Mode |
 | ------ | ----------- | --------- | ---- |
 | clk | 47 | in | LVCMOS33 |
-| pad_row_n[0] (R1, C D E F) | 25 (or 15) | out, high impedance when idle | LVCMOS33 |
-| pad_row_n[1] (R2, 8 9 A B) | 26 (or 16) | out, high impedance when idle | LVCMOS33 |
+| pad_row_n[0] (R1, C D E F) | 15 | out, high impedance when idle | LVCMOS33 |
+| pad_row_n[1] (R2, 8 9 A B) | 16 | out, high impedance when idle | LVCMOS33 |
 | pad_row_n[2] (R3, 4 5 6 7) | 27 | out, high impedance when idle | LVCMOS33 |
 | pad_row_n[3] (R4, 0 1 2 3) | 28 | out, high impedance when idle | LVCMOS33 |
 | pad_col_n[0..3] (C1..C4) | 31, 32, 33, 34 | in | LVCMOS33 PULL_MODE=UP |
@@ -133,7 +141,8 @@ Sipeed's LCD constraints) and the JTAG pins.
    function); confirm every pin in the table above is ordinary I/O and
    none is JTAG, MODE, DONE, RECONFIG_N or the SSPI/MSPI pins (which
    gowin_pack only frees with `--sspi_as_gpio` / `--mspi_as_gpio`).
-   Decide 25/26 versus 15/16 there.
+   Pins 25/26 have been rejected; verify GPIO release for the selected
+   dual-purpose pins, including replacement pin 15.
 3. The flow, from Apicula's own Makefile for this board:
    `synth_gowin`, then `nextpnr-himbaechel --device GW1NZ-LV1QN48C6/I5
    --vopt cst=...`, then `gowin_pack -c -d GW1NZ-1`. Confirm the
