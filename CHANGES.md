@@ -2,6 +2,9 @@
 
 ## 2026-10-18
 
+- Hardware: add printable TXS0108E breakout wiring PNG/SVG, including
+  both power rails, channel assignments and the OE startup sequence.
+
 - Hardware: add photo-based physical Dupont and level-shifter diagrams,
   editable SVGs, PNGs and a netlist-driven generator; move keypad C2/C3
   from non-header FPGA pins 32/33 to header-accessible 20/35.

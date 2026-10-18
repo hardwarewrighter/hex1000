@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1400" height="1010" viewBox="0 0 1400 1010" role="img"><title>TXS0108E breakout wiring for the Nano 1K and MAX7219</title><rect width="100%" height="100%" fill="white"/><g font-family="DejaVu Sans, sans-serif">
+<text x="40" y="46" font-size="30" fill="#17212b" text-anchor="start" font-weight="bold">TXS0108E: Nano 1K to MAX7219 display</text>
+<text x="40" y="82" font-size="20" fill="#17212b" text-anchor="start" font-weight="normal">Logical connections: match the labels on YOUR breakout. Header order and chip pin numbers vary.</text>
+<rect x="40" y="135" width="400" height="490" rx="16" fill="#eef4fa" stroke="#8da0b5"/><rect x="560" y="135" width="280" height="490" rx="16" fill="#f0f6f0" stroke="#8da58d"/><rect x="1040" y="135" width="320" height="490" rx="16" fill="#fff3e8" stroke="#c7a789"/>
+<text x="64" y="178" font-size="25" fill="#17212b" text-anchor="start" font-weight="bold">Tang Nano 1K</text>
+<text x="64" y="209" font-size="17" fill="#17212b" text-anchor="start" font-weight="normal">USB UP, component side facing you</text>
+<text x="700" y="178" font-size="25" fill="#17212b" text-anchor="middle" font-weight="bold">TXS0108E</text>
+<text x="700" y="209" font-size="18" fill="#17212b" text-anchor="middle" font-weight="normal">A = 3.3V     B = 5V</text>
+<text x="1060" y="178" font-size="23" fill="#17212b" text-anchor="start" font-weight="bold">MAX7219 input header</text>
+<text x="64" y="288" font-size="23" fill="#b85c00" text-anchor="start" font-weight="bold">FPGA 17</text>
+<text x="64" y="318" font-size="17" fill="#17212b" text-anchor="start" font-weight="normal">Left: fifth from bottom</text>
+<line x1="440" y1="300" x2="560" y2="300" stroke="#b85c00" stroke-width="4"/>
+<text x="580" y="307" font-size="23" fill="#b85c00" text-anchor="start" font-weight="normal">A1</text>
+<line x1="635" y1="300" x2="765" y2="300" stroke="#b85c00" stroke-width="3"/>
+<text x="820" y="307" font-size="23" fill="#b85c00" text-anchor="end" font-weight="normal">B1</text>
+<line x1="840" y1="300" x2="1040" y2="300" stroke="#b85c00" stroke-width="4"/>
+<text x="1060" y="307" font-size="24" fill="#b85c00" text-anchor="start" font-weight="bold">DIN</text>
+<text x="64" y="388" font-size="23" fill="#b85c00" text-anchor="start" font-weight="bold">FPGA 18</text>
+<text x="64" y="418" font-size="17" fill="#17212b" text-anchor="start" font-weight="normal">Left: sixth from bottom</text>
+<line x1="440" y1="400" x2="560" y2="400" stroke="#b85c00" stroke-width="4"/>
+<text x="580" y="407" font-size="23" fill="#b85c00" text-anchor="start" font-weight="normal">A2</text>
+<line x1="635" y1="400" x2="765" y2="400" stroke="#b85c00" stroke-width="3"/>
+<text x="820" y="407" font-size="23" fill="#b85c00" text-anchor="end" font-weight="normal">B2</text>
+<line x1="840" y1="400" x2="1040" y2="400" stroke="#b85c00" stroke-width="4"/>
+<text x="1060" y="407" font-size="24" fill="#b85c00" text-anchor="start" font-weight="bold">CS / LOAD</text>
+<text x="64" y="488" font-size="23" fill="#b85c00" text-anchor="start" font-weight="bold">FPGA 19</text>
+<text x="64" y="518" font-size="17" fill="#17212b" text-anchor="start" font-weight="normal">Right: fourth from bottom</text>
+<line x1="440" y1="500" x2="560" y2="500" stroke="#b85c00" stroke-width="4"/>
+<text x="580" y="507" font-size="23" fill="#b85c00" text-anchor="start" font-weight="normal">A3</text>
+<line x1="635" y1="500" x2="765" y2="500" stroke="#b85c00" stroke-width="3"/>
+<text x="820" y="507" font-size="23" fill="#b85c00" text-anchor="end" font-weight="normal">B3</text>
+<line x1="840" y1="500" x2="1040" y2="500" stroke="#b85c00" stroke-width="4"/>
+<text x="1060" y="507" font-size="24" fill="#b85c00" text-anchor="start" font-weight="bold">CLK</text>
+<text x="64" y="581" font-size="18" fill="#17212b" text-anchor="start" font-weight="normal">3.3V + 5V + common GND below</text>
+<text x="700" y="580" font-size="17" fill="#17212b" text-anchor="middle" font-weight="normal">A4-A8 / B4-B8 unused</text>
+<text x="1060" y="580" font-size="18" fill="#17212b" text-anchor="start" font-weight="normal">Use DIN end, not DOUT</text>
+<text x="40" y="675" font-size="24" fill="#17212b" text-anchor="start" font-weight="bold">Power and enable cables</text>
+<text x="40" y="714" font-size="22" fill="#1769aa" text-anchor="start" font-weight="normal">Nano 3V3  -&gt;  TXS VCCA / VA / VCC_A</text>
+<text x="40" y="746" font-size="22" fill="#c62828" text-anchor="start" font-weight="normal">Nano 5V  -&gt;  TXS VCCB / VB / VCC_B  AND  display VCC</text>
+<text x="40" y="778" font-size="22" fill="#202020" text-anchor="start" font-weight="normal">Nano GND  -&gt;  TXS GND  AND  display GND  (same ground as button strip)</text>
+<text x="40" y="822" font-size="21" fill="#17212b" text-anchor="start" font-weight="bold">OE: hold LOW during startup; enable with 3.3V after both supplies are stable.</text>
+<text x="40" y="853" font-size="20" fill="#17212b" text-anchor="start" font-weight="normal">Example: OE -&gt; 10 kohm -&gt; GND; then add a jumper from OE to 3V3 after power-up.</text>
+<text x="40" y="882" font-size="20" fill="#17212b" text-anchor="start" font-weight="normal">Remove that enable jumper before the next power-up. Do not connect OE to 5V.</text>
+<text x="40" y="918" font-size="18" fill="#17212b" text-anchor="start" font-weight="normal">3V3 header: upper right, below the two GND holes. 5V/GND: use the board cable-map photo.</text>
+<text x="40" y="947" font-size="18" fill="#17212b" text-anchor="start" font-weight="normal">Keep signal wires short. Add 100 nF from each supply to GND if not already fitted on the breakout.</text>
+<text x="40" y="976" font-size="18" fill="#17212b" text-anchor="start" font-weight="normal">Use this instead of the 74AHCT125. No FPGA software changes for the three display signals.</text>
+<text x="40" y="999" font-size="15" fill="#17212b" text-anchor="start" font-weight="normal">Source: TI TXS0108E datasheet. Wiring reference; physical operation is not yet validated.</text>
+</g></svg>

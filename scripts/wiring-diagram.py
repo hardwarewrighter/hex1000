@@ -82,13 +82,30 @@ for pins,side in [(left,'left'),(right,'right')]:
 parts += [txt(40,578,'Common 5V rail: Nano 1K 5V, shifter pin 14, shifter pin 13, display VCC.',21,COLORS['power']),txt(40,611,'Common GND: Nano GND, strip GND, display GND, shifter pins 1, 4, 7, 10, 12.',21),txt(40,644,'100 nF capacitor between pins 14 and 7, close to the chip. Board power/current validation still pending.',18),txt(40,670,'Source: TI SN74AHCT125 datasheet, pin configuration (top view). Disconnect USB before changing wires.',16)]
 parts.append('</g></svg>')
 (ROOT/'docs/images/level-shifter.svg').write_text('\n'.join(parts)+'\n')
-print('PASS: 15 unique FPGA assignments all mapped to side headers; generated two SVG diagrams')
+
+# TXS0108E breakout alternative: logical labels, never assumed header order.
+parts = start(1400,1010, 'TXS0108E breakout wiring for the Nano 1K and MAX7219')
+parts += [txt(40,46,'TXS0108E: Nano 1K to MAX7219 display',30,weight='bold'),txt(40,82,'Logical connections: match the labels on YOUR breakout. Header order and chip pin numbers vary.',20)]
+parts.append('<rect x="40" y="135" width="400" height="490" rx="16" fill="#eef4fa" stroke="#8da0b5"/><rect x="560" y="135" width="280" height="490" rx="16" fill="#f0f6f0" stroke="#8da58d"/><rect x="1040" y="135" width="320" height="490" rx="16" fill="#fff3e8" stroke="#c7a789"/>')
+parts += [txt(64,178,'Tang Nano 1K',25,weight='bold'),txt(64,209,'USB UP, component side facing you',17),txt(700,178,'TXS0108E',25,anchor='middle',weight='bold'),txt(700,209,'A = 3.3V     B = 5V',18,anchor='middle'),txt(1060,178,'MAX7219 input header',23,weight='bold')]
+for y,fpga,loc,a,b,display in [(300,'17','Left: fifth from bottom','A1','B1','DIN'),(400,'18','Left: sixth from bottom','A2','B2','CS / LOAD'),(500,'19','Right: fourth from bottom','A3','B3','CLK')]:
+    c=COLORS['spi']
+    parts += [txt(64,y-12,f'FPGA {fpga}',23,c,weight='bold'),txt(64,y+18,loc,17),line(440,y,560,y,c,4),txt(580,y+7,a,23,c),line(635,y,765,y,c,3),txt(820,y+7,b,23,c,anchor='end'),line(840,y,1040,y,c,4),txt(1060,y+7,display,24,c,weight='bold')]
+parts += [txt(64,581,'3.3V + 5V + common GND below',18),txt(700,580,'A4-A8 / B4-B8 unused',17,anchor='middle'),txt(1060,580,'Use DIN end, not DOUT',18)]
+parts += [txt(40,675,'Power and enable cables',24,weight='bold')]
+rows=[('Nano 3V3  ->  TXS VCCA / VA / VCC_A','#1769aa'),('Nano 5V  ->  TXS VCCB / VB / VCC_B  AND  display VCC',COLORS['power']),('Nano GND  ->  TXS GND  AND  display GND  (same ground as button strip)',COLORS['gnd'])]
+for i,(s,c) in enumerate(rows): parts.append(txt(40,714+i*32,s,22,c))
+parts += [txt(40,822,'OE: hold LOW during startup; enable with 3.3V after both supplies are stable.',21,weight='bold'),txt(40,853,'Example: OE -> 10 kohm -> GND; then add a jumper from OE to 3V3 after power-up.',20),txt(40,882,'Remove that enable jumper before the next power-up. Do not connect OE to 5V.',20),txt(40,918,'3V3 header: upper right, below the two GND holes. 5V/GND: use the board cable-map photo.',18),txt(40,947,'Keep signal wires short. Add 100 nF from each supply to GND if not already fitted on the breakout.',18),txt(40,976,'Use this instead of the 74AHCT125. No FPGA software changes for the three display signals.',18),txt(40,999,'Source: TI TXS0108E datasheet. Wiring reference; physical operation is not yet validated.',15)]
+parts.append('</g></svg>')
+(ROOT/'docs/images/txs0108e-wiring.svg').write_text('\n'.join(parts)+'\n')
+
+print('PASS: 15 unique FPGA assignments all mapped to side headers; generated three SVG diagrams')
 
 # Rendering is optional; do not install external tools from this script.
 import shutil
 import subprocess
 if shutil.which('rsvg-convert'):
-    for stem in ['dupont-board', 'level-shifter']:
+    for stem in ['dupont-board', 'level-shifter', 'txs0108e-wiring']:
         image = ROOT/'docs/images'/stem
         subprocess.run(['rsvg-convert', str(image.with_suffix('.svg')), '-o', str(image.with_suffix('.png'))], check=True)
 else:
