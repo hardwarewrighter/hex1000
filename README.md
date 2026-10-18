@@ -44,6 +44,7 @@ The scripts also run directly without just.
 | docs/machine.md | Instruction set and machine I/O |
 | docs/hardware.md | Peripheral interfaces and wiring verification status |
 | docs/plan.md | Implementation order and acceptance checks |
+| docs/implementation-notes.md | Key map, front-panel design, netlist corrections, pins to verify |
 | docs/provenance.md | Import source, pins and artifact limitations |
 
 See [the hardware plan](docs/hardware.md) before using the original
