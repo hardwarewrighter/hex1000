@@ -4,6 +4,9 @@ Target: Tang Nano 1K, GW1NZ-LV1QN48C6/I5, nominal 27 MHz clock.
 The board has USB JTAG but no onboard USB UART. The physical calculator
 uses its keys and display directly.
 
+See [the physical cable diagram](wiring.md) for each Dupont connection.
+C1-C4 now use package pins 31/20/35/34; rows use 15/16/27/28.
+
 ## Current physical setup
 
 As reported by the user on 2026-10-18, a Tang Nano 1K is connected by

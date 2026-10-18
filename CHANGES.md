@@ -2,6 +2,10 @@
 
 ## 2026-10-18
 
+- Hardware: add photo-based physical Dupont and level-shifter diagrams,
+  editable SVGs, PNGs and a netlist-driven generator; move keypad C2/C3
+  from non-header FPGA pins 32/33 to header-accessible 20/35.
+
 - Hardware: correct keypad R1/R2 to FPGA package pins 15/16 in the
   netlist and docs; include the MAX7219 level shifter and distinguish
   package pins from header positions and programmer GPIO.

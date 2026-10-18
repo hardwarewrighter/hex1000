@@ -4,6 +4,11 @@ A physical hexadecimal calculator with a 4x4 keypad, four operator
 buttons (+ - * =) and an eight-digit MAX7219 display. X_eTaL is the
 executable specification; the FPGA circuit must produce the same screens.
 
+## Wiring diagram
+
+[Physical Dupont cable map and MAX7219 level shifter](docs/wiring.md).
+USB connector up; the diagram shows each cable at its header hole.
+
 ## Current state
 
 The machine, calculator ROM, panel model and regression baselines are

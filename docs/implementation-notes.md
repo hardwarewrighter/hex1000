@@ -12,6 +12,10 @@ VCCIO1 and VSS, not user I/O. The conditional choice below is resolved:
 do not use 25/26 for the keypad. The netlist now uses pins 15/16 instead, with configuration-pin handling
 still to be verified.
 
+The physical-header review also moved C2/C3 from 32/33 to 20/35.
+See [wiring.md](wiring.md) for the cable diagram; its mapping supersedes
+the historical proposal reviewed below.
+
 ## Decided by the user
 
 | Item | Decision |
@@ -125,7 +129,7 @@ Sipeed's LCD constraints) and the JTAG pins.
 | pad_row_n[1] (R2, 8 9 A B) | 16 | out, high impedance when idle | LVCMOS33 |
 | pad_row_n[2] (R3, 4 5 6 7) | 27 | out, high impedance when idle | LVCMOS33 |
 | pad_row_n[3] (R4, 0 1 2 3) | 28 | out, high impedance when idle | LVCMOS33 |
-| pad_col_n[0..3] (C1..C4) | 31, 32, 33, 34 | in | LVCMOS33 PULL_MODE=UP |
+| pad_col_n[0..3] (C1..C4) | 31, 20, 35, 34 | in | LVCMOS33 PULL_MODE=UP |
 | op_n[0..3] (K1 + .. K4 =) | 38, 39, 40, 41 | in | LVCMOS33 PULL_MODE=UP |
 | max_din | 17 | out (via 74AHCT125) | LVCMOS33 |
 | max_load (CS) | 18 | out (via 74AHCT125) | LVCMOS33 |

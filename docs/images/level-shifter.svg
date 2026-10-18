@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1400" height="680" viewBox="0 0 1400 680" role="img"><title>74AHCT125 14-pin DIP top-view wiring</title><rect width="100%" height="100%" fill="white"/><g font-family="DejaVu Sans, sans-serif">
+<text x="40" y="45" font-size="30" fill="#17212b" text-anchor="start" font-weight="bold">MAX7219 level shifter: 74AHCT125, 14-pin DIP</text>
+<text x="40" y="82" font-size="20" fill="#17212b" text-anchor="start" font-weight="normal">Top view: notch UP. This pin numbering applies to the 14-pin DIP, not an arbitrary breakout module.</text>
+<rect x="600" y="150" width="200" height="380" rx="15" fill="#202c37"/><path d="M675 150 A25 25 0 0 0 725 150" fill="white" stroke="white"/>
+<text x="700" y="310" font-size="23" fill="white" text-anchor="middle" font-weight="normal">74AHCT125</text>
+<text x="700" y="340" font-size="18" fill="white" text-anchor="middle" font-weight="normal">notch up</text>
+<text x="40" y="201" font-size="22" fill="#202020" text-anchor="start" font-weight="normal">1OE -&gt; GND</text>
+<line x1="520" y1="195" x2="600" y2="195" stroke="#202020" stroke-width="3"/>
+<text x="614" y="201" font-size="20" fill="white" text-anchor="start" font-weight="normal">1</text>
+<text x="40" y="249" font-size="22" fill="#b85c00" text-anchor="start" font-weight="normal">1A &lt;- FPGA 17</text>
+<line x1="520" y1="243" x2="600" y2="243" stroke="#b85c00" stroke-width="3"/>
+<text x="614" y="249" font-size="20" fill="white" text-anchor="start" font-weight="normal">2</text>
+<text x="40" y="297" font-size="22" fill="#b85c00" text-anchor="start" font-weight="normal">1Y -&gt; display DIN</text>
+<line x1="520" y1="291" x2="600" y2="291" stroke="#b85c00" stroke-width="3"/>
+<text x="614" y="297" font-size="20" fill="white" text-anchor="start" font-weight="normal">3</text>
+<text x="40" y="345" font-size="22" fill="#202020" text-anchor="start" font-weight="normal">2OE -&gt; GND</text>
+<line x1="520" y1="339" x2="600" y2="339" stroke="#202020" stroke-width="3"/>
+<text x="614" y="345" font-size="20" fill="white" text-anchor="start" font-weight="normal">4</text>
+<text x="40" y="393" font-size="22" fill="#b85c00" text-anchor="start" font-weight="normal">2A &lt;- FPGA 18</text>
+<line x1="520" y1="387" x2="600" y2="387" stroke="#b85c00" stroke-width="3"/>
+<text x="614" y="393" font-size="20" fill="white" text-anchor="start" font-weight="normal">5</text>
+<text x="40" y="441" font-size="22" fill="#b85c00" text-anchor="start" font-weight="normal">2Y -&gt; display CS/LOAD</text>
+<line x1="520" y1="435" x2="600" y2="435" stroke="#b85c00" stroke-width="3"/>
+<text x="614" y="441" font-size="20" fill="white" text-anchor="start" font-weight="normal">6</text>
+<text x="40" y="489" font-size="22" fill="#202020" text-anchor="start" font-weight="normal">GND -&gt; common GND</text>
+<line x1="520" y1="483" x2="600" y2="483" stroke="#202020" stroke-width="3"/>
+<text x="614" y="489" font-size="20" fill="white" text-anchor="start" font-weight="normal">7</text>
+<text x="786" y="201" font-size="20" fill="white" text-anchor="end" font-weight="normal">14</text>
+<line x1="800" y1="195" x2="850" y2="195" stroke="#c62828" stroke-width="3"/>
+<text x="872" y="201" font-size="22" fill="#c62828" text-anchor="start" font-weight="normal">VCC -&gt; 5V</text>
+<text x="786" y="249" font-size="20" fill="white" text-anchor="end" font-weight="normal">13</text>
+<line x1="800" y1="243" x2="850" y2="243" stroke="#c62828" stroke-width="3"/>
+<text x="872" y="249" font-size="22" fill="#c62828" text-anchor="start" font-weight="normal">4OE -&gt; 5V (unused gate off)</text>
+<text x="786" y="297" font-size="20" fill="white" text-anchor="end" font-weight="normal">12</text>
+<line x1="800" y1="291" x2="850" y2="291" stroke="#202020" stroke-width="3"/>
+<text x="872" y="297" font-size="22" fill="#202020" text-anchor="start" font-weight="normal">4A -&gt; GND</text>
+<text x="786" y="345" font-size="20" fill="white" text-anchor="end" font-weight="normal">11</text>
+<line x1="800" y1="339" x2="850" y2="339" stroke="#70777f" stroke-width="3"/>
+<text x="872" y="345" font-size="22" fill="#70777f" text-anchor="start" font-weight="normal">4Y: leave unconnected</text>
+<text x="786" y="393" font-size="20" fill="white" text-anchor="end" font-weight="normal">10</text>
+<line x1="800" y1="387" x2="850" y2="387" stroke="#202020" stroke-width="3"/>
+<text x="872" y="393" font-size="22" fill="#202020" text-anchor="start" font-weight="normal">3OE -&gt; GND</text>
+<text x="786" y="441" font-size="20" fill="white" text-anchor="end" font-weight="normal">9</text>
+<line x1="800" y1="435" x2="850" y2="435" stroke="#b85c00" stroke-width="3"/>
+<text x="872" y="441" font-size="22" fill="#b85c00" text-anchor="start" font-weight="normal">3A &lt;- FPGA 19</text>
+<text x="786" y="489" font-size="20" fill="white" text-anchor="end" font-weight="normal">8</text>
+<line x1="800" y1="483" x2="850" y2="483" stroke="#b85c00" stroke-width="3"/>
+<text x="872" y="489" font-size="22" fill="#b85c00" text-anchor="start" font-weight="normal">3Y -&gt; display CLK</text>
+<text x="40" y="578" font-size="21" fill="#c62828" text-anchor="start" font-weight="normal">Common 5V rail: Nano 1K 5V, shifter pin 14, shifter pin 13, display VCC.</text>
+<text x="40" y="611" font-size="21" fill="#17212b" text-anchor="start" font-weight="normal">Common GND: Nano GND, strip GND, display GND, shifter pins 1, 4, 7, 10, 12.</text>
+<text x="40" y="644" font-size="18" fill="#17212b" text-anchor="start" font-weight="normal">100 nF capacitor between pins 14 and 7, close to the chip. Board power/current validation still pending.</text>
+<text x="40" y="670" font-size="16" fill="#17212b" text-anchor="start" font-weight="normal">Source: TI SN74AHCT125 datasheet, pin configuration (top view). Disconnect USB before changing wires.</text>
+</g></svg>

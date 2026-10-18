@@ -26,3 +26,6 @@ gate:
 
 check-core:
     scripts/check-core.sh
+
+wiring-diagram:
+    python3 scripts/wiring-diagram.py

@@ -25,12 +25,12 @@ QFN48 database. No device was programmed.
 ## Corrected connection choices
 
 Use the Mac proposal's alternative R1=15, R2=16; keep R3=27, R4=28,
-columns=31/32/33/34, operators=38/39/40/41, display=17/18/19.
-All these are FPGA I/O present on Sipeed's board pinmap. They do not
+columns=31/20/35/34, operators=38/39/40/41, display=17/18/19.
+All these corrected assignments are FPGA I/O present on Sipeed's side-header pinmap. They do not
 collide with clock 47, RGB LEDs 9/10/11, buttons 13/44 or JTAG 3/4/5/7.
 hex1000.net now uses this mapping. It identifies FPGA package numbering
-explicitly and includes the level shifter. Header positions and final
-constraints remain to be verified before wiring or programming.
+explicitly and includes the level shifter. The [physical cable diagram](wiring.md) now maps the side-header holes.
+Final constraints and hardware operation remain to be verified.
 
 Several are dual-purpose configuration pins, so being valid FPGA I/O
 is not sufficient for a working bitstream:
@@ -42,7 +42,7 @@ is not sufficient for a working bitstream:
 | 27 | SSPI_CS_N, D0, GCLKT_3 |
 | 28 | DIN, CLKHOLD_N |
 | 31 | MI, D7 |
-| 32, 33 | Clock/PLL alternatives |
+
 
 The remaining proposed peripheral pins have no configuration function
 listed in this database. Verify the correct packer GPIO-release options
@@ -75,3 +75,9 @@ hardware tests are claimed.
 - [Sipeed LCD example constraints](https://github.com/sipeed/sipeed_wiki/blob/main/docs/hardware/en/tang/Tang-Nano-1K/examples/lcd.md)
 - Local database: /disk1/tmp/oss-cad-suite/lib/python3.11/site-packages/apycula/GW1NZ-1.msgpack.xz,
   pinout['GW1NZ-1']['QFN48'].
+
+## Side-header follow-up
+
+Pins 32/33 are valid FPGA I/O but not shown on the physical side headers.
+C2/C3 now use 20/35 instead. The earlier package-only review did not
+establish header access; wiring.md provides the corrected diagram.
