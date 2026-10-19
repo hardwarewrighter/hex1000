@@ -61,5 +61,13 @@
   "programming": "Persistent internal flash, successful erase/write and CRC check",
   "physical_peripherals": "disconnected; first wired test pending",
   "cold_boot": "pending user observation",
-  "flash_log": "Jtag frequency : requested 6.00MHz    -> real 6.00MHz   \nindex 0:\n\tidcode 0x100681b\n\tmanufacturer Gowin\n\tfamily GW1NZ\n\tmodel  GW1NZ-1\n\tirlength 8\nwrite to flash\nJtag frequency : requested 6.00MHz    -> real 6.00MHz   \nParse file Parse /disk1/github/hardwarewrighter/hex1000/work/board/calculator/calculator.fs: \nDone\nDONE\nJtag frequency : requested 2.50MHz    -> real 2.00MHz   \nErase SRAM DONE\nErase FLASH DONE\n\nErasing FLASH: [==================================================] 100.00%\n\nDone\n\nwrite Flash: [============================                      ] 54.82%\n\nwrite Flash: [==================================================] 100.00%\n\nDone\nCRC check: Success\n"
+  "flash_log": "Jtag frequency : requested 6.00MHz    -> real 6.00MHz   \nindex 0:\n\tidcode 0x100681b\n\tmanufacturer Gowin\n\tfamily GW1NZ\n\tmodel  GW1NZ-1\n\tirlength 8\nwrite to flash\nJtag frequency : requested 6.00MHz    -> real 6.00MHz   \nParse file Parse /disk1/github/hardwarewrighter/hex1000/work/board/calculator/calculator.fs: \nDone\nDONE\nJtag frequency : requested 2.50MHz    -> real 2.00MHz   \nErase SRAM DONE\nErase FLASH DONE\n\nErasing FLASH: [==================================================] 100.00%\n\nDone\n\nwrite Flash: [============================                      ] 54.82%\n\nwrite Flash: [==================================================] 100.00%\n\nDone\nCRC check: Success\n",
+  "user_observations": [
+    {
+      "date": "2026-10-19",
+      "setup": "TXS0108E and display connected; keypad and operators not connected",
+      "result": "display blank; Nano RGB green",
+      "status": "Nano unplugged during diagnosis; OE connection/voltages not yet confirmed"
+    }
+  ]
 }

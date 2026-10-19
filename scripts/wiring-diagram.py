@@ -93,7 +93,7 @@ parts.append('</g></svg>')
 (ROOT/'docs/images/level-shifter.svg').write_text('\n'.join(parts)+'\n')
 
 # TXS0108E breakout alternative: logical labels, never assumed header order.
-parts = start(1400,1010, 'TXS0108E breakout wiring for the Nano 1K and MAX7219')
+parts = start(1400,1200, 'TXS0108E breakout wiring for the Nano 1K and MAX7219')
 parts += [txt(40,46,'TXS0108E: Nano 1K to MAX7219 display',30,weight='bold'),txt(40,82,'Logical connections: match the labels on YOUR breakout. Header order and chip pin numbers vary.',20)]
 parts.append('<rect x="40" y="135" width="400" height="490" rx="16" fill="#eef4fa" stroke="#8da0b5"/><rect x="560" y="135" width="280" height="490" rx="16" fill="#f0f6f0" stroke="#8da58d"/><rect x="1040" y="135" width="320" height="490" rx="16" fill="#fff3e8" stroke="#c7a789"/>')
 parts += [txt(64,178,'Tang Nano 1K',25,weight='bold'),txt(64,209,'USB UP, component side facing you',17),txt(700,178,'TXS0108E',25,anchor='middle',weight='bold'),txt(700,209,'A = 3.3V     B = 5V',18,anchor='middle'),txt(1060,178,'MAX7219 input header',23,weight='bold')]
@@ -104,7 +104,11 @@ parts += [txt(64,581,'3.3V + 5V + common GND below',18),txt(700,580,'A4-A8 / B4-
 parts += [txt(40,675,'Power and enable cables',24,weight='bold')]
 rows=[('Nano 3V3  ->  TXS VCCA / VA / VCC_A','#1769aa'),('Nano 5V  ->  TXS VCCB / VB / VCC_B  AND  display VCC',COLORS['power']),('Nano GND  ->  TXS GND  AND  display GND  (same ground as button strip)',COLORS['gnd'])]
 for i,(s,c) in enumerate(rows): parts.append(txt(40,714+i*32,s,22,c))
-parts += [txt(40,822,'OE: Nano FPGA 23 -> TXS OE, with a 10 kohm pull-down from OE to GND.',21,weight='bold'),txt(40,853,'FPGA 23 is LEFT, eighth hole from the bottom. Firmware enables it after about 39 ms.',20),txt(40,882,'Do not tie OE to 3V3 or 5V when the FPGA drives it. Remove the earlier manual jumper.',20),txt(40,918,'3V3 header: upper right, below the two GND holes. 5V/GND: use the board cable-map photo.',18),txt(40,947,'Keep signal wires short. Add 100 nF from each supply to GND if not already fitted on the breakout.',18),txt(40,976,'Use this instead of the 74AHCT125. This OE wiring requires the physical calculator firmware.',18),txt(40,999,'Source: TI TXS0108E datasheet. Wiring reference; physical operation is not yet validated.',15)]
+parts += [txt(40,822,'OE ENABLE: a signal wire plus a resistor BRANCH to ground',23,weight='bold')]
+parts += [txt(40,874,'Nano FPGA 23',23,COLORS['spi'],weight='bold'),txt(40,904,'Left, eighth hole from bottom',18),line(370,868,1040,868,COLORS['spi'],4),txt(1060,875,'TXS OE',25,COLORS['spi'],weight='bold')]
+parts.append('<circle cx="700" cy="868" r="7" fill="#b85c00"/>')
+parts += [line(700,868,700,910,COLORS['spi']),'<rect x="687" y="910" width="26" height="70" fill="white" stroke="#202020" stroke-width="3"/>',txt(740,943,'10 kohm resistor',23,weight='bold'),txt(740,972,'10,000 ohms',18),line(700,980,700,1010,COLORS['gnd']),line(660,1010,740,1010,COLORS['gnd']),line(672,1020,728,1020,COLORS['gnd']),line(685,1030,715,1030,COLORS['gnd']),txt(700,1062,'Common GND (Nano + TXS + display)',20,anchor='middle')]
+parts += [txt(40,1100,'The resistor is a branch to GND, not in series with the OE signal wire. OE must not float.',19),txt(40,1128,'Do not tie OE to 3V3 or 5V when driven by FPGA 23. Firmware raises OE after about 39 ms.',19),txt(40,1156,'Keep signal wires short. Add 100 nF per supply if absent on the breakout. Rewire only with USB unplugged.',18),txt(40,1186,'Source: TI TXS0108E datasheet. Match breakout labels; this drawing does not specify its header order.',16)]
 parts.append('</g></svg>')
 (ROOT/'docs/images/txs0108e-wiring.svg').write_text('\n'.join(parts)+'\n')
 

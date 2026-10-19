@@ -81,6 +81,12 @@ This is a logical connection diagram, not a specific breakout's header
 layout. Match printed labels on your module. VCCA goes to Nano 3V3;
 VCCB and display VCC go to 5V; all grounds join.
 
+**OE must not be left unconnected.** The 10 kohm resistor is a branch
+from the OE signal to ground, not a series resistor in the signal wire.
+It holds OE low before the FPGA starts; FPGA pin 23 then drives OE high.
+The missing resistor alone does not explain a persistently blank display
+if OE is already driven high. Check the OE connection and voltage.
+
 The calculator now drives TXS0108E OE from **FPGA package pin 23**,
 left eighth hole from the bottom. Add a 10 kohm pull-down from OE to
 GND; the FPGA enables it after about 39 ms. **Remove the old OE-to-3V3

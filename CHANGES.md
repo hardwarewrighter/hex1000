@@ -1,5 +1,11 @@
 # Changes
 
+## 2026-10-19
+
+- Wiring: draw TXS0108E OE and its 10 kohm pull-down explicitly,
+  distinguish the resistor branch from the signal wire, and record the
+  first blank-display/green-LED report with diagnosis pending.
+
 ## 2026-10-18
 
 - Calculator: add X_eTaL Front and reviewed new baselines, matching RTL,
