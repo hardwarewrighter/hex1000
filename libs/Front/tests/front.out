@@ -1,0 +1,10 @@
+ok: physical layout
+ok: first equals
+ok: second equals clears
+ok: equals pair flag cleared
+ok: debounced equals bit
+ok: clear matrix column
+ok: inactive matrix column
+ok: MAX7219 font
+ok: digit 0 serial word
+9 checks, all passed

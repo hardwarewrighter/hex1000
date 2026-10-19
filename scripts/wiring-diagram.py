@@ -19,6 +19,13 @@ for wire in net['connections']:
         assert pin not in assigned, f'duplicate FPGA pin {pin}'
         assigned[pin]=wire['to']
 assert len(assigned)==15
+variant_path = ROOT/'hex1000-txs0108e.net'
+if variant_path.exists():
+    variant = json.loads(variant_path.read_text())
+    variant_pins = [c['from'].split(':PIN')[1] for c in variant['connections'] if c['from'].startswith('TANG_1K:PIN')]
+    assert len(variant_pins)==16 and set(variant_pins)==set(assigned)|{'23'}
+    assert all(pin in LEFT+RIGHT for pin in variant_pins)
+
 assert assigned['15']=='KEYPAD:R1' and assigned['16']=='KEYPAD:R2'
 assert assigned['20']=='KEYPAD:C2' and assigned['35']=='KEYPAD:C3'
 
@@ -30,6 +37,7 @@ def start(w,h,title):
     return [f'<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="{w}" height="{h}" viewBox="0 0 {w} {h}" role="img"><title>{escape(title)}</title><rect width="100%" height="100%" fill="white"/><g font-family="DejaVu Sans, sans-serif">']
 
 def label(pin):
+    if pin == '23': return 'OE -> TXS OE (optional; not 74)', 'spi'
     if pin not in assigned:
         names={'13':'Button A - leave free','44':'Button B - leave free','47':'27 MHz clock - leave free','9':'Onboard red LED - leave free','10':'Onboard blue LED - leave free','11':'Onboard green LED - leave free','42':'MODE1 - leave free'}
         return names.get(pin,'Programmer GPIO - DO NOT USE' if pin.startswith('BL702') else 'Leave free'), 'unused'
@@ -38,7 +46,7 @@ def label(pin):
     if to.startswith('KEYPAD:C'): return f'{to.split(":")[1]} keypad', 'col'
     if to.startswith('BUTTON_STRIP:'):
         k=to.split(':')[1]; return f'{k} operator  ({dict(K1="+",K2="-",K3="*",K4="=")[k]})','op'
-    dest={'74AHCT125:A1':'DIN via shifter pin 2','74AHCT125:A2':'CS/LOAD via shifter pin 5','74AHCT125:A3':'CLK via shifter pin 9'}
+    dest={'74AHCT125:A1':'DIN via level shifter','74AHCT125:A2':'CS/LOAD via level shifter','74AHCT125:A3':'CLK via level shifter'}
     return dest[to],'spi'
 
 parts=start(1400,1120,'HEX1000 Tang Nano 1K physical Dupont cable map')
@@ -50,8 +58,9 @@ for side,pins in [('left',LEFT),('right',RIGHT)]:
     for i,pin in enumerate(pins):
         y=125+(YS[i]-10)*690/483
         text,kind=label(pin)
-        if side=='left' and i==1: text,kind='5V rail: display VCC + shifter pin 14','power'
+        if side=='left' and i==1: text,kind='5V rail: display VCC + shifter 5V supply','power'
         if side=='left' and i==3: text,kind='GND rail: strip GND + display + shifter','gnd'
+        if side=='right' and i==3: text,kind='3V3 -> TXS VCCA only', 'row'
         if pin in ('5V','GND','3V3') and kind=='unused': text=f'{pin} - leave free'
         c=COLORS[kind]; active=kind!='unused'
         if side=='left':
@@ -62,7 +71,7 @@ for side,pins in [('left',LEFT),('right',RIGHT)]:
             x=743 if i==0 else 780
         parts.append(f'<circle cx="{x}" cy="{y}" r="6" fill="white" stroke="{c}" stroke-width="{3 if active else 1}"/>')
 parts += [txt(40,855,'Keypad: rows are driven LOW one at a time; columns and operator inputs use pull-ups.',19),txt(40,884,'No extra power/GND lead on the 8-wire passive keypad. The operator strip GND goes to the GND rail.',18),line(40,905,1360,905,'#bec6ce',1),txt(40,939,'MAX7219 signal cables: use its INPUT header (DIN), not the DOUT end.',21,weight='bold')]
-for i,s in enumerate(['FPGA 17  ->  74AHCT125 pin 2 (1A)  ->  pin 3 (1Y)  ->  display DIN','FPGA 18  ->  74AHCT125 pin 5 (2A)  ->  pin 6 (2Y)  ->  display CS / LOAD','FPGA 19  ->  74AHCT125 pin 9 (3A)  ->  pin 8 (3Y)  ->  display CLK']):
+for i,s in enumerate(['FPGA 17  ->  shifter 3.3V input  ->  shifter 5V output  ->  display DIN','FPGA 18  ->  shifter 3.3V input  ->  shifter 5V output  ->  display CS / LOAD','FPGA 19  ->  shifter 3.3V input  ->  shifter 5V output  ->  display CLK']):
     parts.append(txt(40,973+i*28,s,20,COLORS['spi']))
 parts += [txt(40,1066,'See wiring.md and the level-shifter diagram for power, enable pins, resistors and decoupling.',18),txt(40,1097,'Board photo/pin order: Sipeed Nano 1K pinmap. Wiring proposal; firmware and hardware validation pending.',15)]
 parts.append('</g></svg>')
@@ -95,7 +104,7 @@ parts += [txt(64,581,'3.3V + 5V + common GND below',18),txt(700,580,'A4-A8 / B4-
 parts += [txt(40,675,'Power and enable cables',24,weight='bold')]
 rows=[('Nano 3V3  ->  TXS VCCA / VA / VCC_A','#1769aa'),('Nano 5V  ->  TXS VCCB / VB / VCC_B  AND  display VCC',COLORS['power']),('Nano GND  ->  TXS GND  AND  display GND  (same ground as button strip)',COLORS['gnd'])]
 for i,(s,c) in enumerate(rows): parts.append(txt(40,714+i*32,s,22,c))
-parts += [txt(40,822,'OE: hold LOW during startup; enable with 3.3V after both supplies are stable.',21,weight='bold'),txt(40,853,'Example: OE -> 10 kohm -> GND; then add a jumper from OE to 3V3 after power-up.',20),txt(40,882,'Remove that enable jumper before the next power-up. Do not connect OE to 5V.',20),txt(40,918,'3V3 header: upper right, below the two GND holes. 5V/GND: use the board cable-map photo.',18),txt(40,947,'Keep signal wires short. Add 100 nF from each supply to GND if not already fitted on the breakout.',18),txt(40,976,'Use this instead of the 74AHCT125. No FPGA software changes for the three display signals.',18),txt(40,999,'Source: TI TXS0108E datasheet. Wiring reference; physical operation is not yet validated.',15)]
+parts += [txt(40,822,'OE: Nano FPGA 23 -> TXS OE, with a 10 kohm pull-down from OE to GND.',21,weight='bold'),txt(40,853,'FPGA 23 is LEFT, eighth hole from the bottom. Firmware enables it after about 39 ms.',20),txt(40,882,'Do not tie OE to 3V3 or 5V when the FPGA drives it. Remove the earlier manual jumper.',20),txt(40,918,'3V3 header: upper right, below the two GND holes. 5V/GND: use the board cable-map photo.',18),txt(40,947,'Keep signal wires short. Add 100 nF from each supply to GND if not already fitted on the breakout.',18),txt(40,976,'Use this instead of the 74AHCT125. This OE wiring requires the physical calculator firmware.',18),txt(40,999,'Source: TI TXS0108E datasheet. Wiring reference; physical operation is not yet validated.',15)]
 parts.append('</g></svg>')
 (ROOT/'docs/images/txs0108e-wiring.svg').write_text('\n'.join(parts)+'\n')
 

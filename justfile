@@ -33,3 +33,7 @@ wiring-diagram:
 # Peripheral-free Nano 1K test: test/build/detect/load (SRAM only).
 board-selftest +args:
     python3 scripts/board-selftest.py {{args}}
+
+# Physical keys and MAX7219: test/build/detect/load/flash.
+board-calculator +args:
+    python3 scripts/board-calculator.py {{args}}

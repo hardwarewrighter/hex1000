@@ -1,0 +1,21 @@
+"fr:" u_se< "Front"
+"k:" u_se< "Check"
+## Only exactly one column is visible on K, and the second equals becomes X.
+key1 := fr:k_ey (fr:KeyReset, 524288, 32768)
+(ph1, code1, eq1) := key1
+key2 := fr:k_ey ((0, code1, eq1), 524288, 32768)
+(ph2, code2, eq2) := key2
+## Nine matching frames after a change are required before acceptance.
+scan := 144 '{ s -> 4 fr:s_can (s, 15, 7) } p_ower fr:ScanReset
+(tick, row, raw, candidate, stable, accepted) := scan
+k:r_eport (
+ ("physical layout" k:t_est (12 13 14 15 8 9 10 11 4 5 6 7 0 1 2 3 16 17 18 19) k:i_s fr:Map)
+ k:a_nd ("first equals" k:t_est 19 k:i_s code1)
+ k:a_nd ("second equals clears" k:t_est 20 k:i_s code2)
+ k:a_nd ("equals pair flag cleared" k:t_est 0 k:i_s eq2)
+ k:a_nd ("debounced equals bit" k:t_est 524288 k:i_s accepted)
+ k:a_nd ("clear matrix column" k:t_est 1 k:i_s fr:k_inputs ((2, 20, 0), 8192))
+ k:a_nd ("inactive matrix column" k:t_est 0 k:i_s fr:k_inputs ((2, 20, 0), 4096))
+ k:a_nd ("MAX7219 font" k:t_est 126 48 95 0 k:i_s 'fr:s_eg e_ach 16 17 22 5)
+ k:a_nd ("digit 0 serial word" k:t_est 382 k:i_s fr:w_ord (5, 16 0 0 0 0 0 0 0))
+)

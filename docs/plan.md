@@ -25,3 +25,14 @@
 
 The imported 9K UART wrapper is not the 1K panel. Core-only utilization
 is not proof that the complete keypad/display calculator fits.
+
+## Physical calculator implementation, 2026-10-18
+
+Front now supplies physical scanning, debounce, == translation and
+MAX7219 output, with a clock-by-clock X_eTaL model comparison and
+production-debounce board tests. The complete calculator fits the 1K
+and passes routed timing with a dedicated global machine clock.
+The TXS variant adds automatic OE on pin 23. Persistent flash loading
+and the first wired/cold-boot observations are recorded in
+boards/tangnano1k/evidence/calculator.json. Overflow text and ROM-side
+RAM clearing remain separate future work; arithmetic currently wraps.

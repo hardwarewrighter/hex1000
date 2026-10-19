@@ -76,5 +76,6 @@ clears it itself. See the historical handoff for exact smoke-test traces.
 
 The proposed panel captures digit strobes R0-R7 and O, scans keys through
 the machine's R8-R13 protocol, and serializes completed display frames.
-R14 is reserved for overflow and R15 indicates ready. Neither a complete
-panel RTL driver nor its final resource usage has been established here.
+R14 is reserved for overflow and R15 indicates ready. The Front RTL and full calculator now pass model/board simulation and
+routed timing. TXS OE is driven on pin 23 after a startup delay. Physical
+button/display checks are next; see calculator-test.md.

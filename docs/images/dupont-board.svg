@@ -8,7 +8,7 @@
 <text x="542" y="233.85714285714286" font-size="16" fill="#70777f" text-anchor="end" font-weight="normal">13</text>
 <line x1="550" y1="227.85714285714286" x2="610" y2="227.85714285714286" stroke="#70777f" stroke-width="1"/>
 <circle cx="610" cy="227.85714285714286" r="6" fill="white" stroke="#70777f" stroke-width="1"/>
-<text x="46" y="263.8571428571429" font-size="18" fill="#c62828" text-anchor="start" font-weight="bold">5V rail: display VCC + shifter pin 14</text>
+<text x="46" y="263.8571428571429" font-size="18" fill="#c62828" text-anchor="start" font-weight="bold">5V rail: display VCC + shifter 5V supply</text>
 <text x="542" y="263.8571428571429" font-size="16" fill="#c62828" text-anchor="end" font-weight="normal">5V</text>
 <line x1="550" y1="257.8571428571429" x2="576" y2="257.8571428571429" stroke="#c62828" stroke-width="4"/>
 <circle cx="576" cy="257.8571428571429" r="6" fill="white" stroke="#c62828" stroke-width="3"/>
@@ -52,19 +52,19 @@
 <text x="542" y="558.1428571428571" font-size="16" fill="#70777f" text-anchor="end" font-weight="normal">24</text>
 <line x1="550" y1="552.1428571428571" x2="576" y2="552.1428571428571" stroke="#70777f" stroke-width="1"/>
 <circle cx="576" cy="552.1428571428571" r="6" fill="white" stroke="#70777f" stroke-width="1"/>
-<text x="46" y="588.1428571428571" font-size="18" fill="#70777f" text-anchor="start" font-weight="normal">Leave free</text>
-<text x="542" y="588.1428571428571" font-size="16" fill="#70777f" text-anchor="end" font-weight="normal">23</text>
-<line x1="550" y1="582.1428571428571" x2="576" y2="582.1428571428571" stroke="#70777f" stroke-width="1"/>
-<circle cx="576" cy="582.1428571428571" r="6" fill="white" stroke="#70777f" stroke-width="1"/>
+<text x="46" y="588.1428571428571" font-size="18" fill="#b85c00" text-anchor="start" font-weight="bold">OE -&gt; TXS OE (optional; not 74)</text>
+<text x="542" y="588.1428571428571" font-size="16" fill="#b85c00" text-anchor="end" font-weight="normal">23</text>
+<line x1="550" y1="582.1428571428571" x2="576" y2="582.1428571428571" stroke="#b85c00" stroke-width="4"/>
+<circle cx="576" cy="582.1428571428571" r="6" fill="white" stroke="#b85c00" stroke-width="3"/>
 <text x="46" y="618.1428571428571" font-size="18" fill="#70777f" text-anchor="start" font-weight="normal">Leave free</text>
 <text x="542" y="618.1428571428571" font-size="16" fill="#70777f" text-anchor="end" font-weight="normal">22</text>
 <line x1="550" y1="612.1428571428571" x2="576" y2="612.1428571428571" stroke="#70777f" stroke-width="1"/>
 <circle cx="576" cy="612.1428571428571" r="6" fill="white" stroke="#70777f" stroke-width="1"/>
-<text x="46" y="646.7142857142857" font-size="18" fill="#b85c00" text-anchor="start" font-weight="bold">CS/LOAD via shifter pin 5</text>
+<text x="46" y="646.7142857142857" font-size="18" fill="#b85c00" text-anchor="start" font-weight="bold">CS/LOAD via level shifter</text>
 <text x="542" y="646.7142857142857" font-size="16" fill="#b85c00" text-anchor="end" font-weight="normal">18</text>
 <line x1="550" y1="640.7142857142857" x2="576" y2="640.7142857142857" stroke="#b85c00" stroke-width="4"/>
 <circle cx="576" cy="640.7142857142857" r="6" fill="white" stroke="#b85c00" stroke-width="3"/>
-<text x="46" y="676.7142857142857" font-size="18" fill="#b85c00" text-anchor="start" font-weight="bold">DIN via shifter pin 2</text>
+<text x="46" y="676.7142857142857" font-size="18" fill="#b85c00" text-anchor="start" font-weight="bold">DIN via level shifter</text>
 <text x="542" y="676.7142857142857" font-size="16" fill="#b85c00" text-anchor="end" font-weight="normal">17</text>
 <line x1="550" y1="670.7142857142857" x2="576" y2="670.7142857142857" stroke="#b85c00" stroke-width="4"/>
 <circle cx="576" cy="670.7142857142857" r="6" fill="white" stroke="#b85c00" stroke-width="3"/>
@@ -96,10 +96,10 @@
 <text x="838" y="292.42857142857144" font-size="16" fill="#70777f" text-anchor="start" font-weight="normal">GND</text>
 <text x="900" y="292.42857142857144" font-size="18" fill="#70777f" text-anchor="start" font-weight="normal">GND - leave free</text>
 <circle cx="780" cy="286.42857142857144" r="6" fill="white" stroke="#70777f" stroke-width="1"/>
-<line x1="780" y1="316.42857142857144" x2="824" y2="316.42857142857144" stroke="#70777f" stroke-width="1"/>
-<text x="838" y="322.42857142857144" font-size="16" fill="#70777f" text-anchor="start" font-weight="normal">3V3</text>
-<text x="900" y="322.42857142857144" font-size="18" fill="#70777f" text-anchor="start" font-weight="normal">3V3 - leave free</text>
-<circle cx="780" cy="316.42857142857144" r="6" fill="white" stroke="#70777f" stroke-width="1"/>
+<line x1="780" y1="316.42857142857144" x2="824" y2="316.42857142857144" stroke="#1769aa" stroke-width="4"/>
+<text x="838" y="322.42857142857144" font-size="16" fill="#1769aa" text-anchor="start" font-weight="normal">3V3</text>
+<text x="900" y="322.42857142857144" font-size="18" fill="#1769aa" text-anchor="start" font-weight="bold">3V3 -&gt; TXS VCCA only</text>
+<circle cx="780" cy="316.42857142857144" r="6" fill="white" stroke="#1769aa" stroke-width="3"/>
 <line x1="780" y1="345.0" x2="824" y2="345.0" stroke="#70777f" stroke-width="1"/>
 <text x="838" y="351.0" font-size="16" fill="#70777f" text-anchor="start" font-weight="normal">3V3</text>
 <text x="900" y="351.0" font-size="18" fill="#70777f" text-anchor="start" font-weight="normal">3V3 - leave free</text>
@@ -150,7 +150,7 @@
 <circle cx="780" cy="670.7142857142857" r="6" fill="white" stroke="#087f5b" stroke-width="3"/>
 <line x1="780" y1="700.7142857142857" x2="824" y2="700.7142857142857" stroke="#b85c00" stroke-width="4"/>
 <text x="838" y="706.7142857142857" font-size="16" fill="#b85c00" text-anchor="start" font-weight="normal">19</text>
-<text x="900" y="706.7142857142857" font-size="18" fill="#b85c00" text-anchor="start" font-weight="bold">CLK via shifter pin 9</text>
+<text x="900" y="706.7142857142857" font-size="18" fill="#b85c00" text-anchor="start" font-weight="bold">CLK via level shifter</text>
 <circle cx="780" cy="700.7142857142857" r="6" fill="white" stroke="#b85c00" stroke-width="3"/>
 <line x1="780" y1="729.2857142857143" x2="824" y2="729.2857142857143" stroke="#70777f" stroke-width="1"/>
 <text x="838" y="735.2857142857143" font-size="16" fill="#70777f" text-anchor="start" font-weight="normal">29</text>
@@ -168,9 +168,9 @@
 <text x="40" y="884" font-size="18" fill="#17212b" text-anchor="start" font-weight="normal">No extra power/GND lead on the 8-wire passive keypad. The operator strip GND goes to the GND rail.</text>
 <line x1="40" y1="905" x2="1360" y2="905" stroke="#bec6ce" stroke-width="1"/>
 <text x="40" y="939" font-size="21" fill="#17212b" text-anchor="start" font-weight="bold">MAX7219 signal cables: use its INPUT header (DIN), not the DOUT end.</text>
-<text x="40" y="973" font-size="20" fill="#b85c00" text-anchor="start" font-weight="normal">FPGA 17  -&gt;  74AHCT125 pin 2 (1A)  -&gt;  pin 3 (1Y)  -&gt;  display DIN</text>
-<text x="40" y="1001" font-size="20" fill="#b85c00" text-anchor="start" font-weight="normal">FPGA 18  -&gt;  74AHCT125 pin 5 (2A)  -&gt;  pin 6 (2Y)  -&gt;  display CS / LOAD</text>
-<text x="40" y="1029" font-size="20" fill="#b85c00" text-anchor="start" font-weight="normal">FPGA 19  -&gt;  74AHCT125 pin 9 (3A)  -&gt;  pin 8 (3Y)  -&gt;  display CLK</text>
+<text x="40" y="973" font-size="20" fill="#b85c00" text-anchor="start" font-weight="normal">FPGA 17  -&gt;  shifter 3.3V input  -&gt;  shifter 5V output  -&gt;  display DIN</text>
+<text x="40" y="1001" font-size="20" fill="#b85c00" text-anchor="start" font-weight="normal">FPGA 18  -&gt;  shifter 3.3V input  -&gt;  shifter 5V output  -&gt;  display CS / LOAD</text>
+<text x="40" y="1029" font-size="20" fill="#b85c00" text-anchor="start" font-weight="normal">FPGA 19  -&gt;  shifter 3.3V input  -&gt;  shifter 5V output  -&gt;  display CLK</text>
 <text x="40" y="1066" font-size="18" fill="#17212b" text-anchor="start" font-weight="normal">See wiring.md and the level-shifter diagram for power, enable pins, resistors and decoupling.</text>
 <text x="40" y="1097" font-size="15" fill="#17212b" text-anchor="start" font-weight="normal">Board photo/pin order: Sipeed Nano 1K pinmap. Wiring proposal; firmware and hardware validation pending.</text>
 </g></svg>

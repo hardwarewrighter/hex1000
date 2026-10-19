@@ -1,0 +1,65 @@
+{
+  "date": "2026-10-18",
+  "device": "GW1NZ-1",
+  "idcode": "0x0100681b",
+  "bitstream_sha256": "cbfd4c847e557192c72037b8b4029b5bb7c5918c82cef7a431cfd51cef937b2c",
+  "input_sha256": {
+    "boards/tangnano1k/calculator.v": "60bebb461aef1bc75a531598129da665247dbdb90541a1778f5257210e5380cf",
+    "boards/tangnano1k/calculator.cst": "06b63247c88feecb4c4ea989e56382b5cf8d2824273c36fdc0ad32b317145bf3",
+    "boards/tangnano1k/calculator.sdc": "7377d85f914580c03a6ec07208f7c66a0c32b13d00a986366bdb599acd1b18ba",
+    "libs/Front/rtl/front.v": "ad0ea610eba1456bce7aa70adf79b6446942f72bdd545fc3b7248face5f6e1a0",
+    "libs/Hex1000/rtl/hex1000.v": "b37d5832bea68589497b340cef014153fbf79738b6d22cb97a101d36aafb6caf"
+  },
+  "resources": {
+    "LUT4": {
+      "available": 1152,
+      "used": 801
+    },
+    "ALU": {
+      "available": 864,
+      "used": 172
+    },
+    "DFF": {
+      "available": 864,
+      "used": 288
+    },
+    "BSRAM": {
+      "available": 4,
+      "used": 2
+    },
+    "BUFG": {
+      "available": 18,
+      "used": 1
+    },
+    "IOB": {
+      "available": 48,
+      "used": 16
+    }
+  },
+  "timing": {
+    "clk_IBUF_I_O": {
+      "achieved": 164.82611083984375,
+      "constraint": 27
+    },
+    "machine_clk": {
+      "achieved": 99.28514862060547,
+      "constraint": 0.9642857313156128
+    }
+  },
+  "model": "1100 clocks compare all scanner/debounce/key/digit/SPI state against X_eTaL",
+  "simulations": [
+    "physical matrix and operator strip; debounce and held-key handshake",
+    "MAX7219 receives initialization and eight digit words",
+    "12+34=46",
+    "A*B=6E",
+    "5-7=FFFFFFFE",
+    "C0DE+BEEF=17FCD",
+    "second consecutive equals clears to 0"
+  ],
+  "txs_oe": "FPGA23 after about 39 ms; 10 kohm pull-down, no manual jumper",
+  "gate": "PASS: 25 library baselines, 178 doc examples, ROM/core checks, six programming guards, self-test and production/accelerated panel simulations",
+  "programming": "Persistent internal flash, successful erase/write and CRC check",
+  "physical_peripherals": "disconnected; first wired test pending",
+  "cold_boot": "pending user observation",
+  "flash_log": "Jtag frequency : requested 6.00MHz    -> real 6.00MHz   \nindex 0:\n\tidcode 0x100681b\n\tmanufacturer Gowin\n\tfamily GW1NZ\n\tmodel  GW1NZ-1\n\tirlength 8\nwrite to flash\nJtag frequency : requested 6.00MHz    -> real 6.00MHz   \nParse file Parse /disk1/github/hardwarewrighter/hex1000/work/board/calculator/calculator.fs: \nDone\nDONE\nJtag frequency : requested 2.50MHz    -> real 2.00MHz   \nErase SRAM DONE\nErase FLASH DONE\n\nErasing FLASH: [==================================================] 100.00%\n\nDone\n\nwrite Flash: [============================                      ] 54.82%\n\nwrite Flash: [==================================================] 100.00%\n\nDone\nCRC check: Success\n"
+}

@@ -1,0 +1,113 @@
+## Front: the physical HEX1000 keypad scanner, debounce, key handshake and MAX7219 stream
+## Import with "fr:" u_se< "Front". Signals are integers and state is tuples.
+## The board synchronizes external inputs before this model receives them.
+"pn:" u_se< "Panel"
+
+## Map: physical scan positions, top keypad row first, then operators.
+## >> "fr:" u_se< "Front"
+## >> 4 t_ake fr:Map
+## 12 13 14 15
+l:Map := (12 + o_ffsets 4) c_at (8 + o_ffsets 4) c_at (4 + o_ffsets 4) c_at (o_ffsets 4) c_at 16 17 18 19
+
+## ScanReset: scanner and debouncer at startup.
+## >> "fr:" u_se< "Front"
+## >> fr:ScanReset
+## (0, 0, 0, 0, 0, 0)
+l:ScanReset := (0, 0, 0, 0, 0, 0)
+
+## KeyReset: idle handshake, key code and previous-equals flag.
+## >> "fr:" u_se< "Front"
+## >> fr:KeyReset
+## (0, 0, 0)
+l:KeyReset := (0, 0, 0)
+
+## SpiReset: phase, word, shift register, DIN, CLK and LOAD.
+## >> "fr:" u_se< "Front"
+## >> fr:SpiReset
+## (0, 0, 0, 0, 0, 1)
+l:SpiReset := (0, 0, 0, 0, 0, 1)
+
+## s_can: one clock; four rows, active-low columns/operators, eight stable scans.
+## >> "fr:" u_se< "Front"
+## >> 4 fr:s_can (fr:ScanReset, 15, 15)
+## (1, 0, 0, 0, 0, 0)
+l:s_can := { clocks ((tick, row, scan, candidate, count, accepted), cols, ops) ->
+  tick != clocks - 1 ? (tick + 1, row, scan, candidate, count, accepted)
+  scale := 16 ^ row
+  scan1 := scan + scale * (15 - cols) - (scan d_iv scale) m_od 16
+  row != 3 ? (0, row + 1, scan1, candidate, count, accepted)
+  frame := scan1 + 65536 * 15 - ops
+  frame != candidate ? (0, 0, scan1, frame, 0, accepted)
+  count < 7 ? (0, 0, scan1, candidate, count + 1, accepted)
+  (0, 0, scan1, candidate, count, frame)
+}
+
+## k_ey: one handshake clock; the second consecutive equals becomes clear (20).
+## >> "fr:" u_se< "Front"
+## >> fr:k_ey (fr:KeyReset, 1, 32768)
+## (1, 12, 0)
+l:k_ey := { ((phase, key, last), accepted, r) ->
+  ready := (r d_iv 32768) m_od 2
+  phase = 1 ? (1 + ready, key, last)
+  phase = 2 ? (3 - ready, key, last)
+  phase = 3 ? (3 * accepted != 0, key, last)
+  accepted = 0 ? (phase, key, last)
+  bits := r_ev (20 r_eshape 2) e_ncode accepted
+  pos := f_irst bits i_ndexOf 1
+  code := pos s_elect l:Map
+  translated := code + ((code = 19) & last)
+  (1, translated, (code = 19) & n_ot last)
+}
+
+## k_inputs: matrix K bits from the held key and the machine's R column select.
+## >> "fr:" u_se< "Front"
+## >> fr:k_inputs ((2, 19, 1), 4096)
+## 8
+l:k_inputs := { ((phase, key, last), r) ->
+  (phase = 2) * ((r d_iv 2 ^ 8 + key d_iv 4) m_od 2) * 2 ^ key m_od 4
+}
+
+## d_igits: capture O when each of the eight R digit strobes rises.
+## >> "fr:" u_se< "Front"
+## >> fr:d_igits ((8 r_eshape 0), 0, 22, 1)
+## 22 0 0 0 0 0 0 0
+l:d_igits := { (digits, previous, o, r) ->
+  now := 8 t_ake r_ev (16 r_eshape 2) e_ncode r
+  old := 8 t_ake r_ev (16 r_eshape 2) e_ncode previous
+  digits + (now > old) * (o m_od 32) - digits
+}
+
+## s_eg: a shown digit's seven segments in MAX7219 order, DP A B C D E F G.
+## >> "fr:" u_se< "Front"
+## >> 'fr:s_eg e_ach 16 17 22 5
+## 126 48 95 0
+l:s_eg := { d ->
+  font := (1 + d m_od 16) s_elect pn:Font
+  (d >= 16) * 2 d_ecode r_ev (7 r_eshape 2) e_ncode font
+}
+
+## w_ord: initialization words 0-4 and display registers 1-8 at words 5-12.
+## >> "fr:" u_se< "Front"
+## >> fr:w_ord (0, 8 r_eshape 0)
+## 3073
+l:w_ord := { (index, digits) ->
+  index < 5 ? (index + 1) s_elect 3073 3840 2304 2823 2564
+  (256 * index - 4) + l:s_eg (index - 4) s_elect digits
+}
+
+## s_pi: one serial clock step, 16 MSB-first bits and four clocks of LOAD high.
+## >> "fr:" u_se< "Front"
+## >> fr:s_pi (fr:SpiReset, 8 r_eshape 0)
+## (1, 0, 3073, 0, 0, 0)
+l:s_pi := { ((phase, index, shift, din, clk, load), digits) ->
+  phase = 0 ? h:s_tart (index, digits)
+  phase = 32 ? (33, index, shift, din, 0, 1)
+  phase = 35 ? (0, (index + 1) m_od 13, shift, din, clk, load)
+  phase > 31 ? (phase + 1, index, shift, din, clk, load)
+  (phase m_od 2) = 1 ? (phase + 1, index, shift, din, 1, load)
+  (phase + 1, index, (2 * shift) m_od 65536, (shift d_iv 16384) m_od 2, 0, load)
+}
+h:s_tart := { (index, digits) ->
+  word := l:w_ord (index, digits)
+  (1, index, word, word d_iv 32768, 0, 0)
+}

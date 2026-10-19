@@ -1,0 +1,122 @@
+{
+  "project": "Tang Nano 1K - Keypad, Buttons & MAX7219",
+  "connections": [
+    {
+      "from": "TANG_1K:5V",
+      "to": [
+        "MAX7219:VCC",
+        "TXS0108E:VCCB"
+      ]
+    },
+    {
+      "from": "TANG_1K:GND",
+      "to": [
+        "MAX7219:GND",
+        "BUTTON_STRIP:GND",
+        "TXS0108E:GND",
+        "OE_PULLDOWN:B"
+      ]
+    },
+    {
+      "from": "TANG_1K:PIN17",
+      "to": "TXS0108E:A1"
+    },
+    {
+      "from": "TANG_1K:PIN18",
+      "to": "TXS0108E:A2"
+    },
+    {
+      "from": "TANG_1K:PIN19",
+      "to": "TXS0108E:A3"
+    },
+    {
+      "from": "TANG_1K:PIN15",
+      "to": "KEYPAD:R1",
+      "series_resistance_ohms": 1000
+    },
+    {
+      "from": "TANG_1K:PIN16",
+      "to": "KEYPAD:R2",
+      "series_resistance_ohms": 1000
+    },
+    {
+      "from": "TANG_1K:PIN27",
+      "to": "KEYPAD:R3",
+      "series_resistance_ohms": 1000
+    },
+    {
+      "from": "TANG_1K:PIN28",
+      "to": "KEYPAD:R4",
+      "series_resistance_ohms": 1000
+    },
+    {
+      "from": "TANG_1K:PIN31",
+      "to": "KEYPAD:C1"
+    },
+    {
+      "from": "TANG_1K:PIN20",
+      "to": "KEYPAD:C2"
+    },
+    {
+      "from": "TANG_1K:PIN35",
+      "to": "KEYPAD:C3"
+    },
+    {
+      "from": "TANG_1K:PIN34",
+      "to": "KEYPAD:C4"
+    },
+    {
+      "from": "TANG_1K:PIN38",
+      "to": "BUTTON_STRIP:K1"
+    },
+    {
+      "from": "TANG_1K:PIN39",
+      "to": "BUTTON_STRIP:K2"
+    },
+    {
+      "from": "TANG_1K:PIN40",
+      "to": "BUTTON_STRIP:K3"
+    },
+    {
+      "from": "TANG_1K:PIN41",
+      "to": "BUTTON_STRIP:K4"
+    },
+    {
+      "from": "TXS0108E:B1",
+      "to": "MAX7219:DIN"
+    },
+    {
+      "from": "TXS0108E:B2",
+      "to": "MAX7219:CS"
+    },
+    {
+      "from": "TXS0108E:B3",
+      "to": "MAX7219:CLK"
+    },
+    {
+      "from": "TANG_1K:3V3",
+      "to": "TXS0108E:VCCA"
+    },
+    {
+      "from": "TANG_1K:PIN23",
+      "to": [
+        "TXS0108E:OE",
+        "OE_PULLDOWN:A"
+      ]
+    }
+  ],
+  "pin_numbering": "TANG_1K:PINnn means GW1NZ-1 QFN48 FPGA package pin, not header position or BL702 GPIO",
+  "status": "Package pins and physical side-header mapping checked against Sipeed pinmap; constraints, power/current and hardware validation pending",
+  "notes": [
+    "TXS0108E breakout channel labels are logical terminals; match the labels on the actual module.",
+    "OE is driven by FPGA package pin 23 after a startup delay, with a 10 kohm pull-down. No manual OE-to-3V3 jumper.",
+    "VCCA=3.3V, VCCB=5V, common ground. The display remains powered at 5V.",
+    "Use one 1 kohm series resistor on each keypad row. Keep SPI signal leads short."
+  ],
+  "components": {
+    "OE_PULLDOWN": {
+      "kind": "resistor",
+      "ohms": 10000
+    }
+  }
+}

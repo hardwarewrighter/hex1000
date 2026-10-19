@@ -38,11 +38,11 @@
 <text x="40" y="714" font-size="22" fill="#1769aa" text-anchor="start" font-weight="normal">Nano 3V3  -&gt;  TXS VCCA / VA / VCC_A</text>
 <text x="40" y="746" font-size="22" fill="#c62828" text-anchor="start" font-weight="normal">Nano 5V  -&gt;  TXS VCCB / VB / VCC_B  AND  display VCC</text>
 <text x="40" y="778" font-size="22" fill="#202020" text-anchor="start" font-weight="normal">Nano GND  -&gt;  TXS GND  AND  display GND  (same ground as button strip)</text>
-<text x="40" y="822" font-size="21" fill="#17212b" text-anchor="start" font-weight="bold">OE: hold LOW during startup; enable with 3.3V after both supplies are stable.</text>
-<text x="40" y="853" font-size="20" fill="#17212b" text-anchor="start" font-weight="normal">Example: OE -&gt; 10 kohm -&gt; GND; then add a jumper from OE to 3V3 after power-up.</text>
-<text x="40" y="882" font-size="20" fill="#17212b" text-anchor="start" font-weight="normal">Remove that enable jumper before the next power-up. Do not connect OE to 5V.</text>
+<text x="40" y="822" font-size="21" fill="#17212b" text-anchor="start" font-weight="bold">OE: Nano FPGA 23 -&gt; TXS OE, with a 10 kohm pull-down from OE to GND.</text>
+<text x="40" y="853" font-size="20" fill="#17212b" text-anchor="start" font-weight="normal">FPGA 23 is LEFT, eighth hole from the bottom. Firmware enables it after about 39 ms.</text>
+<text x="40" y="882" font-size="20" fill="#17212b" text-anchor="start" font-weight="normal">Do not tie OE to 3V3 or 5V when the FPGA drives it. Remove the earlier manual jumper.</text>
 <text x="40" y="918" font-size="18" fill="#17212b" text-anchor="start" font-weight="normal">3V3 header: upper right, below the two GND holes. 5V/GND: use the board cable-map photo.</text>
 <text x="40" y="947" font-size="18" fill="#17212b" text-anchor="start" font-weight="normal">Keep signal wires short. Add 100 nF from each supply to GND if not already fitted on the breakout.</text>
-<text x="40" y="976" font-size="18" fill="#17212b" text-anchor="start" font-weight="normal">Use this instead of the 74AHCT125. No FPGA software changes for the three display signals.</text>
+<text x="40" y="976" font-size="18" fill="#17212b" text-anchor="start" font-weight="normal">Use this instead of the 74AHCT125. This OE wiring requires the physical calculator firmware.</text>
 <text x="40" y="999" font-size="15" fill="#17212b" text-anchor="start" font-weight="normal">Source: TI TXS0108E datasheet. Wiring reference; physical operation is not yet validated.</text>
 </g></svg>

@@ -2,6 +2,12 @@
 
 ## 2026-10-18
 
+- Calculator: add X_eTaL Front and reviewed new baselines, matching RTL,
+  physical keypad debounce, MAX7219 output and double-equals clear;
+  check model equivalence and production-timing board simulations, add
+  guarded SRAM/flash builds and automatic TXS0108E OE on pin 23;
+  program internal flash with CRC success for the first wired test.
+
 - Hardware: add a guarded Nano 1K SRAM self-test that internally keys
   12+34=, checks 46 and reports via RGB LEDs; add simulation, failure
   injection, device/pin guards, reproducible build and timing records.

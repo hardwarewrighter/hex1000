@@ -1,0 +1,11 @@
+l:Map : Int
+l:ScanReset : (Int, Int, Int, Int, Int, Int)
+l:KeyReset : (Int, Int, Int)
+l:SpiReset : (Int, Int, Int, Int, Int, Int)
+l:s_can : (Num a, Num b) => a -> ((a, Int, Int, Int, b, Int), Int, Int) -> (a, Int, Int, Int, b, Int)
+l:k_ey : Truthy a => ((Int, Int, a), Int, Int) -> (Int, Int, a)
+l:k_inputs : (Num a, Any b) => ((a, Int, b), Int) -> Int
+l:d_igits : (Int, Int, Int, Int) -> Int
+l:s_eg : Int -> Int
+l:w_ord : (Int, Int) -> Int
+l:s_pi : (Num a, Num b) => ((Int, Int, Int, Int, a, b), Int) -> (Int, Int, Int, Int, a, b)

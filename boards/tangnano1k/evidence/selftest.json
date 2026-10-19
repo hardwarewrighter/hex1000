@@ -47,8 +47,8 @@
     }
   },
   "expected_led": "green alternating cyan",
-  "observed_led": null,
-  "observation_status": "Awaiting user observation; no physical arithmetic pass claimed",
+  "observed_led": "solid green, reported by user",
+  "observation_status": "Green pass indicator confirmed by user; blue heartbeat not observed",
   "peripherals": "keypad, button strip and display disconnected",
   "load_log": "Jtag frequency : requested 6.00MHz    -> real 6.00MHz   \nindex 0:\n\tidcode 0x100681b\n\tmanufacturer Gowin\n\tfamily GW1NZ\n\tmodel  GW1NZ-1\n\tirlength 8\nwrite to ram\nJtag frequency : requested 6.00MHz    -> real 6.00MHz   \nParse file Parse /disk1/github/hardwarewrighter/hex1000/work/board/selftest/selftest.fs: \nDone\nDONE\nErase SRAM Load SRAM \nLoad SRAM: [==================================================] 100.00%\n\nDone\nDONE\nCRC check: Success\n"
 }

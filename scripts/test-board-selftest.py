@@ -31,4 +31,25 @@ class Guards(unittest.TestCase):
             with patch.object(module,'BOARD',root):
                 with self.assertRaises(AssertionError): module.check_constraints()
 
+spec2 = importlib.util.spec_from_file_location('calculator', Path(__file__).with_name('board-calculator.py'))
+calculator = importlib.util.module_from_spec(spec2)
+spec2.loader.exec_module(calculator)
+
+class CalculatorGuards(unittest.TestCase):
+    def test_rejects_9k_and_ambiguous_chain(self):
+        for text in ['idcode 0x0100481b', 'idcode 0x0100681b\nidcode 0x0100681b', '']:
+            with self.subTest(text=text), patch.object(calculator,'run',return_value=text):
+                with self.assertRaises(RuntimeError): calculator.detect()
+
+    def test_rejects_non_header_column(self):
+        with tempfile.TemporaryDirectory() as tmp:
+            root=Path(tmp)
+            text=(calculator.BOARD/'calculator.cst').read_text()
+            (root/'calculator.cst').write_text(text.replace('"pad_col_n[1]" 20','"pad_col_n[1]" 32'))
+            with patch.object(calculator,'BOARD',root):
+                with self.assertRaises(RuntimeError): calculator.constraints()
+
+    def test_approved_constraints(self):
+        calculator.constraints()
+
 if __name__=='__main__': unittest.main()

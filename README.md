@@ -15,20 +15,23 @@ The USB-connected FPGA identifies as a GW1NZ-1. A peripheral-free
 [self-test](boards/tangnano1k/README.md) enters `12+34=` internally,
 checks `46` and uses the RGB LED: green/cyan heartbeat means pass;
 red/magenta means failure. `just board-selftest load` is SRAM-only,
-with a device-ID guard; power cycling restores the existing flash demo.
+with a device-ID guard; power cycling restores the installed flash image.
 
 ## Current state
 
-The machine, calculator ROM, panel model and regression baselines are
-imported from X_eTaL-fpga. The core previously synthesized to 438 LUTs,
-81 flip-flops and 2 block RAMs against the 1K's 1152/864/4 capacity.
-The Nano 9K UART calculator was physically tested in the source project.
-Nano 1K self-test programming and LED observation are recorded separately
-in [the board test record](docs/board-selftest.md).
+The physical calculator now has a tested front panel: row scanning,
+input synchronization, debounce, held-key suppression, MAX7219 output
+and equals-equals clear. The X_eTaL Front model matches 1100 RTL clocks;
+board simulations pass arithmetic and serial display tests at production
+debounce timing. The complete image fits and passes routed timing.
 
-The panel library models the font, layout and key behavior. A debounced
-physical keypad interface, MAX7219 driver, verified Nano 1K constraints
-and board top remain to be implemented.
+[First wired test](docs/calculator-test.md) explains the persistent flash
+image and how to unplug, wire, reconnect and test. TXS0108E users must
+use the updated OE wire on FPGA pin 23 and a 10 kohm pull-down. The
+peripherals remain disconnected until the user performs that test.
+
+Overflow still wraps; OuErFLO and ROM-side RAM clearing remain planned.
+The Hex1000, Radix and Panel sources and original core are unchanged.
 
 ## Run the specification
 
@@ -54,6 +57,7 @@ The scripts also run directly without just.
 | ---- | -------- |
 | libs/Hex1000 | Machine specification, assembler, ROM, demos and reference RTL |
 | libs/Radix | Calculator reference behavior |
+| libs/Front | Physical scanner, debounce, == clear and MAX7219 model/RTL |
 | libs/Panel | Hex font, panel geometry and key model |
 | docs/machine.md | Instruction set and machine I/O |
 | docs/hardware.md | Peripheral interfaces and wiring verification status |

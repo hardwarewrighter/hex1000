@@ -68,7 +68,7 @@ the columns into K), but:
 3. The MAX7219 needs a serial stream, not the program's digit strobes.
 
 So the board top wraps the unchanged `hex1000` core in a front-panel
-module, modeled in X_eTaL first (libs/Front, in progress) and written
+module, modeled in X_eTaL first (libs/Front, now implemented and tested) and written
 as Verilog checked clock for clock against that model:
 
 - scan: drives one keypad row low at a time (the others high
@@ -155,7 +155,15 @@ Sipeed's LCD constraints) and the JTAG pins.
    `blinky-tbuf` example for this board). If the flow rejects it, drive
    the rows push-pull and fit the series resistors of item 9.
 
-## Order of work
+## Implementation status
+
+Front is now modeled and checked clock for clock. The calculator image
+uses the corrected pins, a dedicated global machine clock, configuration
+GPIO release and automatic TXS OE on pin 23. Double equals is translated
+to the existing Clear key, without a ROM change. See calculator-test.md
+for first-wiring instructions and evidence. Overflow text is still pending.
+
+## Original order of work
 
 1. Smoke top (plan step 2): core only, LEDs for ready, shown and the
    digit-0 strobe latch, as in docs/handoff-1k.md. Proves the board, the

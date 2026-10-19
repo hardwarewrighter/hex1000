@@ -57,10 +57,10 @@ all SSPI/MSPI pins as a completed validation of its own proposed table.
 - Operators K1-K4: +, -, *, =; common ground, active-low inputs.
 - The planned Front model/RTL must implement synchronization, debounce,
   row scanning, key translation, digit capture and MAX7219 output.
-- This checkout has no libs/Front implementation yet. The Mac notes
-  describe its interface; they are not evidence of completed firmware.
-- Double-equals clear, overflow text and RAM clearing are still planned
-  changes relative to the imported calculator.
+- libs/Front now supplies the X_eTaL model and a clock-for-clock checked
+  RTL implementation. Calculator constraints and routed timing pass.
+- The front panel translates double equals to the existing Clear key.
+  Overflow text and ROM-side RAM clearing remain planned.
 
 Before connecting peripherals, reconcile the corrected mapping with
 actual header locations and module labels, then match the software and
@@ -81,3 +81,6 @@ hardware tests are claimed.
 Pins 32/33 are valid FPGA I/O but not shown on the physical side headers.
 C2/C3 now use 20/35 instead. The earlier package-only review did not
 establish header access; wiring.md provides the corrected diagram.
+
+The TXS0108E alternative adds OE on free FPGA pin 23. The board delays
+its assertion; use the updated diagram, not the earlier manual jumper.

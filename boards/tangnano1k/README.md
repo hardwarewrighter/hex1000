@@ -69,3 +69,10 @@ Placement/routing reports 444 LUT4 cells plus 158 carry ALU cells,
 164 flip-flops and 2 block RAMs. Timing passes both requested clocks:
 27 MHz and 0.964 MHz. See docs/board-selftest.md for the load evidence
 and observed hardware status.
+
+## Physical calculator image
+
+The later [physical calculator](../../docs/calculator-test.md) is now
+programmed in internal flash. It scans keys and drives the MAX7219;
+second equals clears. Power cycling loads that calculator. This page's
+self-test can still be loaded temporarily into SRAM when needed.

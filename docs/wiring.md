@@ -3,8 +3,8 @@
 Hold the Nano 1K with its component side facing you and USB connector
 at the top. The diagram uses Sipeed's board photo and header order;
 colored lines end at the actual holes. Gray labels stay unused.
-Disconnect USB before adding or moving cables. Firmware and physical
-operation of these peripherals are not yet validated.
+Disconnect USB before adding or moving cables. The calculator firmware is modeled, simulated and routed; physical
+peripheral operation still needs the first wired test. See calculator-test.md.
 
 ![Physical board connections](images/dupont-board.png)
 
@@ -32,10 +32,11 @@ start at the bottom of the board, with USB still at the top.
 | Strip K2 (-) | 39 | Right, ninth from bottom |
 | Strip K3 (*) | 40 | Right, twelfth from bottom |
 | Strip K4 (=) | 41 | Right, eleventh from bottom |
+| TXS0108E OE (optional variant) | 23 | Left, eighth from bottom; 10 kohm from OE to GND |
 | Strip GND | GND | Left GND shown in black; fan out to a common ground rail |
-| Display DIN input | 17 via level shifter | Left, fifth from bottom -> shifter 2; shifter 3 -> display DIN |
-| Display CS/LOAD | 18 via level shifter | Left, sixth from bottom -> shifter 5; shifter 6 -> display CS |
-| Display CLK | 19 via level shifter | Right, fourth from bottom -> shifter 9; shifter 8 -> display CLK |
+| Display DIN input | 17 via level shifter | Left, fifth from bottom -> shifter DIN channel -> display DIN |
+| Display CS/LOAD | 18 via level shifter | Left, sixth from bottom -> shifter CS channel -> display CS |
+| Display CLK | 19 via level shifter | Right, fourth from bottom -> shifter CLK channel -> display CLK |
 | Display VCC | 5V | Left red 5V hole in diagram -> common 5V rail |
 | Display GND | GND | Common ground rail |
 
@@ -80,32 +81,31 @@ This is a logical connection diagram, not a specific breakout's header
 layout. Match printed labels on your module. VCCA goes to Nano 3V3;
 VCCB and display VCC go to 5V; all grounds join.
 
-TI recommends holding OE low until both power supplies are stable.
-For a manual bring-up, use a 10 kohm pull-down from OE to GND and add
-a jumper from OE to 3V3 only after power-up. Remove the jumper before
-the next power-up. A final design should control OE for this sequence;
-that control is not implemented in the current firmware. OE must not
-be driven to 5V. Keep the signal cables short and use local supply
-bypass capacitors (100 nF per supply if absent on the module).
+The calculator now drives TXS0108E OE from **FPGA package pin 23**,
+left eighth hole from the bottom. Add a 10 kohm pull-down from OE to
+GND; the FPGA enables it after about 39 ms. **Remove the old OE-to-3V3
+jumper**: do not tie a driven OE signal to either power rail. This
+replaces the earlier manual-jumper instruction. Keep signal cables short
+and add 100 nF bypass capacitors per supply if absent from the breakout.
 
-The display FPGA pins remain 17 (DIN), 18 (CS) and 19 (CLK). The
-existing hex1000.net and the original board image name the 74AHCT125;
-when using this alternative, replace its display signal/power/enable
-wiring with this TXS0108E diagram. Do not combine the two shifters.
+The SPI pins remain 17 (DIN), 18 (CS) and 19 (CLK). Use
+hex1000-txs0108e.net for this variant. hex1000.net and the DIP diagram
+remain the 74AHCT125 variant, where pin 23 is left unconnected. Do not
+combine the two shifters. The same calculator image supports both.
 
 ## Corrections made while locating physical holes
 
 Package pins 25/26 are power/ground, already replaced by 15/16 for R1/R2.
 Pins 32/33 are not shown on the side headers in Sipeed's pinmap, despite
 being valid FPGA I/O. C2/C3 now use header-accessible pins 20/35.
-All 15 peripheral FPGA assignments are unique and on the side headers.
+All 15 base peripheral FPGA assignments are unique and on the side
+headers; the TXS variant adds OE on the otherwise free pin 23.
 The BL:30, BL:29 and BL:26 labels are programmer MCU GPIO; leave them
 unused. They are different from the FPGA pins with the same numbers.
 
-The diagrams and hex1000.net now agree. The front-panel driver and final
-constraints must use this map; configuration-pin GPIO release, routing,
-timing and the assembled hardware still need validation. This drawing
-does not claim that programming the imported core alone drives the panel.
+The diagrams and hex1000.net now agree. The front-panel driver and calculator constraints now use this map.
+Configuration-pin GPIO release and routed timing pass for the complete
+calculator. The assembled hardware still needs the first wired test.
 
 ## Sources and regeneration
 

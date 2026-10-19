@@ -1,0 +1,2 @@
+command = "../../../scripts/xt type ../src/Front.xtl"
+exit_code = 0
