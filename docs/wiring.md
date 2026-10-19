@@ -32,7 +32,7 @@ start at the bottom of the board, with USB still at the top.
 | Strip K2 (-) | 39 | Right, ninth from bottom |
 | Strip K3 (*) | 40 | Right, twelfth from bottom |
 | Strip K4 (=) | 41 | Right, eleventh from bottom |
-| TXS0108E OE (optional variant) | 23 | Left, eighth from bottom; 10 kohm from OE to GND |
+| TXS0108E OE (required with TXS) | 23 | Left, eighth from bottom; 10 kohm from OE to GND |
 | Strip GND | GND | Left GND shown in black; fan out to a common ground rail |
 | Display DIN input | 17 via level shifter | Left, fifth from bottom -> shifter DIN channel -> display DIN |
 | Display CS/LOAD | 18 via level shifter | Left, sixth from bottom -> shifter CS channel -> display CS |

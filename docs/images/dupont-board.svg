@@ -52,7 +52,7 @@
 <text x="542" y="558.1428571428571" font-size="16" fill="#70777f" text-anchor="end" font-weight="normal">24</text>
 <line x1="550" y1="552.1428571428571" x2="576" y2="552.1428571428571" stroke="#70777f" stroke-width="1"/>
 <circle cx="576" cy="552.1428571428571" r="6" fill="white" stroke="#70777f" stroke-width="1"/>
-<text x="46" y="588.1428571428571" font-size="18" fill="#b85c00" text-anchor="start" font-weight="bold">OE -&gt; TXS OE (optional; not 74)</text>
+<text x="46" y="588.1428571428571" font-size="18" fill="#b85c00" text-anchor="start" font-weight="bold">TXS OE REQUIRED (not used by 74)</text>
 <text x="542" y="588.1428571428571" font-size="16" fill="#b85c00" text-anchor="end" font-weight="normal">23</text>
 <line x1="550" y1="582.1428571428571" x2="576" y2="582.1428571428571" stroke="#b85c00" stroke-width="4"/>
 <circle cx="576" cy="582.1428571428571" r="6" fill="white" stroke="#b85c00" stroke-width="3"/>

@@ -37,7 +37,7 @@ def start(w,h,title):
     return [f'<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="{w}" height="{h}" viewBox="0 0 {w} {h}" role="img"><title>{escape(title)}</title><rect width="100%" height="100%" fill="white"/><g font-family="DejaVu Sans, sans-serif">']
 
 def label(pin):
-    if pin == '23': return 'OE -> TXS OE (optional; not 74)', 'spi'
+    if pin == '23': return 'TXS OE REQUIRED (not used by 74)', 'spi'
     if pin not in assigned:
         names={'13':'Button A - leave free','44':'Button B - leave free','47':'27 MHz clock - leave free','9':'Onboard red LED - leave free','10':'Onboard blue LED - leave free','11':'Onboard green LED - leave free','42':'MODE1 - leave free'}
         return names.get(pin,'Programmer GPIO - DO NOT USE' if pin.startswith('BL702') else 'Leave free'), 'unused'

@@ -37,3 +37,7 @@ board-selftest +args:
 # Physical keys and MAX7219: test/build/detect/load/flash.
 board-calculator +args:
     python3 scripts/board-calculator.py {{args}}
+
+# Display/shifter only: test/build/load; SRAM diagnostic, no flash writes.
+display-probe +args:
+    python3 scripts/display-probe.py {{args}}

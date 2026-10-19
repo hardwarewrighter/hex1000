@@ -2,6 +2,11 @@
 
 ## 2026-10-19
 
+- Diagnostics: prepare a slow display-only 00000000 SRAM fixture with
+  tested SPI initialization/brightness and a green heartbeat; remove
+  the misleading optional TXS OE label and document the isolated
+  10 kohm GPIO-load check for the observed OE voltage drop.
+
 - Wiring: draw TXS0108E OE and its 10 kohm pull-down explicitly,
   distinguish the resistor branch from the signal wire, and record the
   first blank-display/green-LED report with diagnosis pending.

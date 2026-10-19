@@ -68,6 +68,20 @@
       "setup": "TXS0108E and display connected; keypad and operators not connected",
       "result": "display blank; Nano RGB green",
       "status": "Nano unplugged during diagnosis; OE connection/voltages not yet confirmed"
+    },
+    {
+      "date": "2026-10-19",
+      "supplies_volts": {
+        "display_VCC": 5,
+        "TXS_VCCA": 3.3,
+        "TXS_VCCB": 4.67
+      },
+      "OE_initial_volts": 0.087,
+      "Nano23_disconnected_volts": 3.3,
+      "OE_to_ground_resistance_kohm": 9.94,
+      "Nano23_and_OE_connected_volts": 0.87,
+      "display": "blank",
+      "status": "Next isolate Nano23 with only a 10 kohm load. Unloaded voltage is insufficient to prove active drive."
     }
   ]
 }
