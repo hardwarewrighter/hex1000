@@ -82,6 +82,13 @@
       "Nano23_and_OE_connected_volts": 0.87,
       "display": "blank",
       "status": "Next isolate Nano23 with only a 10 kohm load. Unloaded voltage is insufficient to prove active drive."
+    },
+    {
+      "date": "2026-10-19",
+      "finding": "OE was connected to a programmer GPIO rather than FPGA package pin 23",
+      "correction": "User moved to correct FPGA23 with pull-down; OE measures 3.29V",
+      "display_after_correction": "still blank with calculator image",
+      "next_test": "display-only slow SPI diagnostic loaded into SRAM with CRC success"
     }
   ]
 }

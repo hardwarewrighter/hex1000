@@ -2,6 +2,10 @@
 
 ## 2026-10-19
 
+- Hardware: record corrected FPGA23 OE connection at 3.29V and load
+  the display-only slow SPI diagnostic into Nano 1K SRAM with CRC
+  success; preserve calculator flash and await display observation.
+
 - Diagnostics: prepare a slow display-only 00000000 SRAM fixture with
   tested SPI initialization/brightness and a green heartbeat; remove
   the misleading optional TXS OE label and document the isolated

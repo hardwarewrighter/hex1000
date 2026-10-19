@@ -47,5 +47,16 @@ just display-probe load
 Loading requires a single GW1NZ-1 ID and matching source/image hashes.
 It programs SRAM only, preserving the calculator in flash. Power cycling
 removes the fixture. The board must be visible on this Linux machine's
-USB data connection before loading. The fixture is prepared, not yet
-loaded onto the user's wired board; supply/enable checks come first.
+USB data connection before loading. The diagnostic was loaded into SRAM on 2026-10-19 with CRC success.
+The user corrected OE from a programmer GPIO to the actual FPGA23,
+and measured 3.29V at OE. Display response to this diagnostic is pending.
+
+## Correct pin and diagnostic load
+
+The user found the OE lead on a programmer GPIO marked 23, rather than
+the FPGA pin. Use **the left side, eighth hole from the bottom**, USB
+up, for FPGA23 (IOR8B/B3). The programmer's similarly numbered GPIO
+is not interchangeable. After correcting this, OE measured 3.29V; the
+calculator display remained blank. The slow diagnostic was then loaded
+into SRAM with successful CRC. Its first display result is pending in
+boards/tangnano1k/evidence/display-probe.json.
