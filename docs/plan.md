@@ -8,6 +8,9 @@
    Add guarded constraints and a core smoke top. Simulate reset, shown
    digit, latched digit-0 strobe and ready; synthesize and route before
    programming an identified Nano 1K. Never use the attached 9K as a 1K.
+   The peripheral-free self-test is now simulated and routed: it enters
+   12+34= internally and checks 46. See boards/tangnano1k/README.md for
+   SRAM loading and observation status.
 3. Implement calculator rules in X_eTaL first: double equals clears,
    negatives remain two's complement, overflow shows OuErFLO, and startup
    clears RAM. Check whether newer upstream work already supplies them.

@@ -9,13 +9,22 @@ executable specification; the FPGA circuit must produce the same screens.
 [Physical Dupont cable map and MAX7219 level shifter](docs/wiring.md).
 USB connector up; the diagram shows each cable at its header hole.
 
+## Test the board without peripherals
+
+The USB-connected FPGA identifies as a GW1NZ-1. A peripheral-free
+[self-test](boards/tangnano1k/README.md) enters `12+34=` internally,
+checks `46` and uses the RGB LED: green/cyan heartbeat means pass;
+red/magenta means failure. `just board-selftest load` is SRAM-only,
+with a device-ID guard; power cycling restores the existing flash demo.
+
 ## Current state
 
 The machine, calculator ROM, panel model and regression baselines are
 imported from X_eTaL-fpga. The core previously synthesized to 438 LUTs,
 81 flip-flops and 2 block RAMs against the 1K's 1152/864/4 capacity.
 The Nano 9K UART calculator was physically tested in the source project.
-No Nano 1K hardware operation is claimed here.
+Nano 1K self-test programming and LED observation are recorded separately
+in [the board test record](docs/board-selftest.md).
 
 The panel library models the font, layout and key behavior. A debounced
 physical keypad interface, MAX7219 driver, verified Nano 1K constraints

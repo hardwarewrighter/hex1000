@@ -1,0 +1,54 @@
+{
+  "date": "2026-10-18",
+  "device": "GW1NZ-1",
+  "jtag_idcode": "0x0100681b",
+  "programming": "SRAM only; flash unchanged",
+  "loader_crc": "Success",
+  "bitstream_sha256": "a2d9d5ed9d3737eb50e6720d74b913fa297168638653c1995cdf5dcd2207f8ab",
+  "input_sha256": {
+    "boards/tangnano1k/selftest.v": "188d1a62fe9628ebb034d1965bc6b3ca69e5ed952ee0ab1f91766ffefecac20b",
+    "boards/tangnano1k/selftest.cst": "9e7e769836395b213c7c7ec10461472acfad013662b9f7a4f336fddcced18315",
+    "boards/tangnano1k/selftest.sdc": "7377d85f914580c03a6ec07208f7c66a0c32b13d00a986366bdb599acd1b18ba",
+    "boards/tangnano1k/board.json": "0cc86b2fd4291a9d9dd176ebfc1f926b83198854b17b191955898339c1f057a8",
+    "libs/Hex1000/rtl/hex1000.v": "b37d5832bea68589497b340cef014153fbf79738b6d22cb97a101d36aafb6caf"
+  },
+  "simulation": "startup zero; digit capture; 12+34=46 in 1755 machine clocks; heartbeat; wrong-result and watchdog fault injection passed",
+  "gate": "22 regression baselines; 156 doc examples; ROM check; core simulation; 3 board guards; board simulation passed",
+  "timing": {
+    "clk_IBUF_I_O": {
+      "achieved": 218.3406219482422,
+      "constraint": 27
+    },
+    "machine_clk": {
+      "achieved": 87.84259033203125,
+      "constraint": 0.9642857313156128
+    }
+  },
+  "resources": {
+    "LUT4": {
+      "available": 1152,
+      "used": 444
+    },
+    "ALU": {
+      "available": 864,
+      "used": 158
+    },
+    "DFF": {
+      "available": 864,
+      "used": 164
+    },
+    "BSRAM": {
+      "available": 4,
+      "used": 2
+    },
+    "IOB": {
+      "available": 48,
+      "used": 4
+    }
+  },
+  "expected_led": "green alternating cyan",
+  "observed_led": null,
+  "observation_status": "Awaiting user observation; no physical arithmetic pass claimed",
+  "peripherals": "keypad, button strip and display disconnected",
+  "load_log": "Jtag frequency : requested 6.00MHz    -> real 6.00MHz   \nindex 0:\n\tidcode 0x100681b\n\tmanufacturer Gowin\n\tfamily GW1NZ\n\tmodel  GW1NZ-1\n\tirlength 8\nwrite to ram\nJtag frequency : requested 6.00MHz    -> real 6.00MHz   \nParse file Parse /disk1/github/hardwarewrighter/hex1000/work/board/selftest/selftest.fs: \nDone\nDONE\nErase SRAM Load SRAM \nLoad SRAM: [==================================================] 100.00%\n\nDone\nDONE\nCRC check: Success\n"
+}

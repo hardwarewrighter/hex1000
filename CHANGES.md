@@ -2,6 +2,10 @@
 
 ## 2026-10-18
 
+- Hardware: add a guarded Nano 1K SRAM self-test that internally keys
+  12+34=, checks 46 and reports via RGB LEDs; add simulation, failure
+  injection, device/pin guards, reproducible build and timing records.
+
 - Hardware: add printable TXS0108E breakout wiring PNG/SVG, including
   both power rails, channel assignments and the OE startup sequence.
 

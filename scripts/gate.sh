@@ -7,3 +7,5 @@ scripts/doctest-libs.sh
 scripts/rom-hex.sh --check
 scripts/fit.sh hex1000
 scripts/check-core.sh
+python3 scripts/test-board-selftest.py
+python3 scripts/board-selftest.py test

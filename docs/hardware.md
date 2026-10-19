@@ -11,8 +11,9 @@ C1-C4 now use package pins 31/20/35/34; rows use 15/16/27/28.
 
 As reported by the user on 2026-10-18, a Tang Nano 1K is connected by
 USB. The keypad, four-button strip and SPI MAX7219 display are not yet
-connected. This is user-reported presence, not a tool-verified device ID.
-No board programming or peripheral wiring was performed during import.
+connected. JTAG now identifies GW1NZ-1, ID 0x0100681b.
+Peripheral wiring remains disconnected. The new peripheral-free SRAM
+self-test and its observation status are documented in board-selftest.md.
 
 Before connecting anything, establish a shared, verified connection
 table and matching software signal mapping. The table must include

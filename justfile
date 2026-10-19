@@ -29,3 +29,7 @@ check-core:
 
 wiring-diagram:
     python3 scripts/wiring-diagram.py
+
+# Peripheral-free Nano 1K test: test/build/detect/load (SRAM only).
+board-selftest +args:
+    python3 scripts/board-selftest.py {{args}}

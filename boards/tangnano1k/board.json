@@ -1,0 +1,13 @@
+{
+  "device": "GW1NZ-LV1QN48C6/I5",
+  "family": "GW1NZ-1",
+  "loader": "tangnano1k",
+  "idcode": "0x0100681b",
+  "clock_mhz": 27,
+  "ports": {
+    "clk": {"pin": 47, "direction": "input"},
+    "led_n[0]": {"pin": 9, "direction": "output"},
+    "led_n[1]": {"pin": 10, "direction": "output"},
+    "led_n[2]": {"pin": 11, "direction": "output"}
+  }
+}
