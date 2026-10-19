@@ -31,8 +31,8 @@ supply voltages at each module's terminals, not only at the Nano end.
 
 ## Prepared display-only diagnostic
 
-The fixture sends `00000000` at minimum brightness using about 5 kHz
-SPI. There is no calculator, keypad or operator logic. Green blinks to
+The fixture sends `DEADBEEF` (visible as `dEAdbEEF`) at minimum
+brightness using about 482 kHz SPI, matching the calculator rate. There is no calculator, keypad or operator logic. Green blinks to
 identify the fixture; this alone does not prove the display received it.
 A simulated SPI receiver checks two complete frames. Build runs that
 simulation before synthesis, timing-checked routing and packing.
@@ -49,7 +49,10 @@ It programs SRAM only, preserving the calculator in flash. Power cycling
 removes the fixture. The board must be visible on this Linux machine's
 USB data connection before loading. The diagnostic was loaded into SRAM on 2026-10-19 with CRC success.
 The user corrected OE from a programmer GPIO to the actual FPGA23,
-and measured 3.29V at OE. Display response to this diagnostic is pending.
+and measured 3.29V at OE. The user then found the display 5V lead disconnected. Reconnecting it
+produced eight zeros with the original slow fixture. The updated fixture
+produced `dEAdbEEF` at the calculator SPI rate, confirmed by the user.
+This proves those glyphs and their ordering, not every hexadecimal glyph.
 
 ## Correct pin and diagnostic load
 
@@ -58,5 +61,5 @@ the FPGA pin. Use **the left side, eighth hole from the bottom**, USB
 up, for FPGA23 (IOR8B/B3). The programmer's similarly numbered GPIO
 is not interchangeable. After correcting this, OE measured 3.29V; the
 calculator display remained blank. The slow diagnostic was then loaded
-into SRAM with successful CRC. Its first display result is pending in
+into SRAM with successful CRC. The successful display results are recorded in
 boards/tangnano1k/evidence/display-probe.json.

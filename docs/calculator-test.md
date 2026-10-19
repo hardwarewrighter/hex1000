@@ -6,7 +6,8 @@ clock; complete board simulations pass keypad scanning, debounce, key
 release, 12+34=46, A*B=6E, 5-7=FFFFFFFE, C0DE+BEEF=17FCD,
 second-equals clear and MAX7219 command/segment framing. The production
 256-clocks-per-row debounce setting is tested, not just an accelerated
-simulation. Physical peripherals still need the first real test.
+simulation. The user confirmed `dEAdbEEF` with the display-only fixture
+at the calculator SPI rate. Physical keypad tests remain pending.
 
 ## Programming complete
 
@@ -14,8 +15,12 @@ On 2026-10-18, the connected GW1NZ-1 was reidentified and its internal
 flash was programmed with this calculator image. openFPGALoader reported
 **CRC check: Success**. The original color-cycling demo was replaced.
 The full gate passed (25 baselines, 178 doc examples and board tests).
-The first actual cold boot with your connected peripherals is still a
-user hardware test, not something software simulation can establish.
+On 2026-10-19, the updated calculator was programmed into persistent
+flash with **CRC check: Success** using an uncompressed image. It adds a DEADBEEF startup banner until the first
+debounced key. That key is processed normally. Banner, first-key and
+clear behavior are checked in the X_eTaL model and board simulation.
+The display-only fixture was confirmed physically; the updated calculator
+and its first physical keypad calculation require user observation.
 
 ## Before unplugging
 
@@ -48,8 +53,8 @@ variant. With the 74AHCT125, leave FPGA 23 unconnected.
    signal leads and use local supply capacitors. Confirm your USB supply
    and board power path can supply the module; do not add another 5V
    source while USB is attached.
-4. Reconnect USB. The persistent calculator should show a single 0 on
-   the display. The green LED channel means the core is ready; blue is
+4. Reconnect USB. The persistent calculator should show `dEAdbEEF` on
+   the display until a key is pressed. The green LED channel means the core is ready; blue is
    a heartbeat, so cyan may also appear. The old rainbow demo should
    no longer run. Display digit order depends on the module: reversed
    digits are a wiring/module-orientation issue to diagnose next.
@@ -95,3 +100,11 @@ routing for the divider's own data-feedback inverter (one warning);
 clock sinks use the global network and final setup/hold checks pass.
 The initial attempt without the global clock failed RAM hold timing
 and was not used for programming.
+
+The compressed startup image passed SRAM CRC but reported a flash-reload
+checksum mismatch at both 6 MHz and 1 MHz JTAG. Repacking without
+compression produced a successful flash CRC. The programming script now
+requires explicit CRC success, since this loader can return exit status
+zero after reporting a CRC failure. A regression test covers that case.
+Use `just board-calculator flash --freq 1000000` to reproduce the
+successful programming settings.

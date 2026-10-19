@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Prepare a slow 00000000 MAX7219 diagnostic; SRAM only, flash preserved."""
+"""Prepare a calculator-rate DEADBEEF MAX7219 diagnostic; SRAM only, flash preserved."""
 import argparse
 import hashlib
 import importlib.util
@@ -60,6 +60,6 @@ def main():
         if len(ids)!=1 or int(ids[0],16)!=0x0100681b:raise RuntimeError('Need exactly one GW1NZ-1')
         output+=run(['openFPGALoader','-b','tangnano1k','--write-sram',OUT/'probe.fs'])
         (OUT/'load.log').write_text(output)
-        print('SRAM only. Expect 00000000 and blinking green. Power cycle restores calculator flash.')
+        print('SRAM only. Expect dEAdbEEF and blinking green. Power cycle restores calculator flash.')
 
 if __name__=='__main__':main()

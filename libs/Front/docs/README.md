@@ -8,8 +8,15 @@ must be released before another press. Multiple keys select the first
 physical position; the passive matrix has no anti-ghosting diodes, so
 use one key at a time.
 
+On configuration, the display shows DEADBEEF (rendered `dEAdbEEF` by
+the seven-segment font). The first debounced press removes the banner
+and is processed normally; noise and short bounce leave it visible.
+The captured calculator digits remain separate from this display overlay.
+Equals-equals clears to zero and does not restore the banner.
+
 | Export | Meaning |
 | ------ | ------- |
+| fr:BootDigits, fr:s_tartup, fr:d_isplay | DEADBEEF startup until the first debounced key; that key is processed normally |
 | fr:Map | Keypad rows CDEF / 89AB / 4567 / 0123, then + - * = |
 | fr:ScanReset, fr:s_can | Row timer, scan capture and full-frame debounce |
 | fr:KeyReset, fr:k_ey, fr:k_inputs | Release/ready handshake and machine K input |
@@ -25,7 +32,7 @@ changes. LOAD stays high for four clocks between words. It continually
 repeats setup and digits so a display enabled after the FPGA catches up.
 
 The board synchronizes physical inputs through two flip-flops before
-Front. The optional TXS0108E OE output rises only after a startup delay;
+Front. The required TXS0108E OE output rises only after a startup delay;
 three SPI outputs also work with the 74AHCT125 wiring.
 
 The unchanged calculator still wraps arithmetic on overflow; OuErFLO

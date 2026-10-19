@@ -79,11 +79,15 @@ module tb;
  endtask
  initial begin
    wait(!dut.rst); ready;
-   check({35'b0,5'd16},64'h000000000000007e);
+   check({35'b0,5'd16},64'h3d4f773d1f4f4f47);
    // A short bouncing press must not be accepted.
    pressed=16'h1000;clocks(32);pressed=0;clocks(160);
    if(dut.panel.accepted!=0 || dut.panel.phase!=0) $fatal(1,"bounce accepted");
-   key(1);key(2);key(16);key(3);key(4);key(19);
+   if(dut.panel.have_key!==0) $fatal(1,"bounce cleared startup banner");
+   key(1);check({35'b0,5'd17},64'h0000000000000030);
+   if(dut.panel.have_key!==1) $fatal(1,"first key did not clear banner");
+   $display("PASS DEADBEEF startup, bounce persistence and first key processed normally");
+   key(2);key(16);key(3);key(4);key(19);
    check({30'b0,5'd20,5'd22},64'h000000000000335f);
    $display("PASS physical scanning and serial display: 12+34=46");
    key(19);check({35'b0,5'd16},64'h000000000000007e);

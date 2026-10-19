@@ -1,6 +1,6 @@
 // Diagnostic fixture: no calculator, keypad or switch inputs.
-// Continuously write 00000000 at minimum intensity, about 5 kHz SPI.
-module display_probe #(parameter HALF_CLOCKS=1350, parameter ENABLE_CLOCKS=1048576)(
+// Continuously write DEADBEEF at minimum intensity, calculator-rate SPI.
+module display_probe #(parameter HALF_CLOCKS=14, parameter ENABLE_CLOCKS=1048576)(
  input wire clk,
  output reg max_din=0, output reg max_clk=0, output reg max_load=1,
  output wire max_oe, output wire [2:0] led_n
@@ -22,6 +22,18 @@ module display_probe #(parameter HALF_CLOCKS=1350, parameter ENABLE_CLOCKS=10485
  reg [5:0] phase=0;
  reg [3:0] word_index=0;
  reg [15:0] shift=0;
+ function [7:0] hex_segment;
+ input [3:0] digit;
+ begin
+   case(digit)
+     0:hex_segment=8'h7e;1:hex_segment=8'h30;2:hex_segment=8'h6d;3:hex_segment=8'h79;
+     4:hex_segment=8'h33;5:hex_segment=8'h5b;6:hex_segment=8'h5f;7:hex_segment=8'h70;
+     8:hex_segment=8'h7f;9:hex_segment=8'h7b;10:hex_segment=8'h77;11:hex_segment=8'h1f;
+     12:hex_segment=8'h4e;13:hex_segment=8'h3d;14:hex_segment=8'h4f;15:hex_segment=8'h47;
+   endcase
+ end
+ endfunction
+ localparam [31:0] VALUE=32'hdeadbeef;
  function [15:0] make_command;
  input [3:0] index;
  begin
@@ -31,7 +43,7 @@ module display_probe #(parameter HALF_CLOCKS=1350, parameter ENABLE_CLOCKS=10485
      2:make_command=16'h0b07; // eight digits
      3:make_command=16'h0a00; // minimum intensity
      4:make_command=16'h0c01; // normal operation
-     default:make_command={4'b0,(index-4'd4),8'h7e}; // 0
+     default:make_command={4'b0,(index-4'd4),hex_segment(VALUE[(index-5)*4 +: 4])};
    endcase
  end
  endfunction

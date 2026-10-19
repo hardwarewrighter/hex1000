@@ -9,6 +9,27 @@
 ## 12 13 14 15
 l:Map := (12 + o_ffsets 4) c_at (8 + o_ffsets 4) c_at (4 + o_ffsets 4) c_at (o_ffsets 4) c_at 16 17 18 19
 
+## BootDigits: shown DEADBEEF, digit zero (rightmost) first.
+## >> "fr:" u_se< "Front"
+## >> fr:BootDigits
+## 31 30 30 27 29 26 30 29
+l:BootDigits := 31 30 30 27 29 26 30 29
+
+## s_tartup: latch the first accepted key; a short unaccepted bounce does not count.
+## >> "fr:" u_se< "Front"
+## >> fr:s_tartup (0, 0, 1)
+## 1
+l:s_tartup := { (had, phase, accepted) -> had | (phase = 0) & accepted != 0 }
+
+## d_isplay: startup banner until the first key, then the captured calculator digits.
+## >> "fr:" u_se< "Front"
+## >> fr:d_isplay (1, 16 0 0 0 0 0 0 0)
+## 16 0 0 0 0 0 0 0
+l:d_isplay := { (had, digits) ->
+  had ? digits
+  l:BootDigits
+}
+
 ## ScanReset: scanner and debouncer at startup.
 ## >> "fr:" u_se< "Front"
 ## >> fr:ScanReset

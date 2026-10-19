@@ -9,7 +9,10 @@ key2 := fr:k_ey ((0, code1, eq1), 524288, 32768)
 scan := 144 '{ s -> 4 fr:s_can (s, 15, 7) } p_ower fr:ScanReset
 (tick, row, raw, candidate, stable, accepted) := scan
 k:r_eport (
- ("physical layout" k:t_est (12 13 14 15 8 9 10 11 4 5 6 7 0 1 2 3 16 17 18 19) k:i_s fr:Map)
+ ("startup banner" k:t_est fr:BootDigits k:i_s fr:d_isplay (0, 8 r_eshape 0))
+ k:a_nd ("first accepted key" k:t_est 1 k:i_s fr:s_tartup (0, 0, 1))
+ k:a_nd ("no accepted bounce" k:t_est 0 k:i_s fr:s_tartup (0, 0, 0))
+ k:a_nd ("physical layout" k:t_est (12 13 14 15 8 9 10 11 4 5 6 7 0 1 2 3 16 17 18 19) k:i_s fr:Map)
  k:a_nd ("first equals" k:t_est 19 k:i_s code1)
  k:a_nd ("second equals clears" k:t_est 20 k:i_s code2)
  k:a_nd ("equals pair flag cleared" k:t_est 0 k:i_s eq2)

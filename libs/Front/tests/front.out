@@ -1,3 +1,6 @@
+ok: startup banner
+ok: first accepted key
+ok: no accepted bounce
 ok: physical layout
 ok: first equals
 ok: second equals clears
@@ -7,4 +10,4 @@ ok: clear matrix column
 ok: inactive matrix column
 ok: MAX7219 font
 ok: digit 0 serial word
-9 checks, all passed
+12 checks, all passed

@@ -49,6 +49,12 @@ class CalculatorGuards(unittest.TestCase):
             with patch.object(calculator,'BOARD',root):
                 with self.assertRaises(RuntimeError): calculator.constraints()
 
+    def test_requires_successful_programming_crc(self):
+        for text in ['', 'CRC check : FAIL', 'CRC check: Success\nCRC check : FAIL']:
+            with self.subTest(text=text), self.assertRaises(RuntimeError):
+                calculator.verify_programming(text)
+        calculator.verify_programming('CRC check: Success')
+
     def test_approved_constraints(self):
         calculator.constraints()
 

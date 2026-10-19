@@ -4,25 +4,26 @@
   "idcode": "0x0100681b",
   "programming": "SRAM only; calculator flash preserved",
   "crc": "Success",
-  "image_sha256": "f614ab255cb387208f688fe28a948eb4927ff91c5ae90bc1b0ac2bdb9f77d2d2",
+  "image_sha256": "7443e1964b55f09ed6f2a069429c0ac2baf94fe1d05ed82ed4a07469f17425fe",
   "inputs": {
-    "boards/tangnano1k/display-probe.v": "1dbd93b6789a06ee64f003c5754ff1e0bcf5dcbb5e9f484325a2959c402ff77a",
+    "boards/tangnano1k/display-probe.v": "21017c5bc987a96178770772eb2d17583353a21b5aa1656836b1769f52c9af11",
     "boards/tangnano1k/display-probe.cst": "b1cc08b211ab154adaa634cc7dd610eaebfa24272aa506b24bd32aae4c7268cb",
-    "boards/tangnano1k/display-probe.sdc": "290ff5412625cf3c2396d072544611324b9b777fb08ff24d4add3ed2405cc19d"
+    "boards/tangnano1k/display-probe.sdc": "0f1dcf86704de48f1e150945071830fc94fb6bfa3d7f9aa4228e36fbefd6e3fa"
   },
   "timing": {
     "clk_IBUF_I_O": {
-      "achieved": 138.46578979492188,
+      "achieved": 170.35775756835938,
       "constraint": 27
     },
     "probe_clk": {
-      "achieved": 186.11575317382812,
-      "constraint": 0.009999999776482582
+      "achieved": 214.36227416992188,
+      "constraint": 0.9642857313156128
     }
   },
   "load_log": "Jtag frequency : requested 6.00MHz    -> real 6.00MHz   \nindex 0:\n\tidcode 0x100681b\n\tmanufacturer Gowin\n\tfamily GW1NZ\n\tmodel  GW1NZ-1\n\tirlength 8\nwrite to ram\nJtag frequency : requested 6.00MHz    -> real 6.00MHz   \nParse file Parse /disk1/github/hardwarewrighter/hex1000/work/board/display-probe/probe.fs: \nDone\nDONE\nErase SRAM Load SRAM \nLoad SRAM: [==================================================] 100.00%\n\nDone\nDONE\nCRC check: Success\n",
-  "expected_display": "00000000 at minimum brightness",
+  "expected_display": "DEADBEEF, rendered dEAdbEEF, at approximately 482 kHz SPI",
   "expected_LED": "blinking green",
   "OE_volts_before_load": 3.29,
-  "physical_display_observation": "pending user response"
+  "physical_display_observation": "User confirmed dEAdbEEF shown",
+  "diagnosis": "Display 5V lead was disconnected; reconnecting it produced eight zeros with the previous slow fixture"
 }

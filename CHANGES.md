@@ -2,6 +2,14 @@
 
 ## 2026-10-19
 
+- Calculator: show DEADBEEF until the first debounced key, process that
+  key normally and keep equals-equals clear at zero; review updated Front
+  regression/type baselines and test model/RTL startup equivalence.
+  Confirm the display-only DEADBEEF fixture at the calculator SPI rate;
+  record the disconnected display 5V lead as the blank-display cause.
+  Program the uncompressed calculator into flash with CRC success;
+  reject loader CRC failures even when its exit status is zero.
+
 - Hardware: record corrected FPGA23 OE connection at 3.29V and load
   the display-only slow SPI diagnostic into Nano 1K SRAM with CRC
   success; preserve calculator flash and await display observation.

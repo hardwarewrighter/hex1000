@@ -36,3 +36,12 @@ The TXS variant adds automatic OE on pin 23. Persistent flash loading
 and the first wired/cold-boot observations are recorded in
 boards/tangnano1k/evidence/calculator.json. Overflow text and ROM-side
 RAM clearing remain separate future work; arithmetic currently wraps.
+
+## Startup display, 2026-10-19
+
+The display-only DEADBEEF fixture works physically at about 482 kHz SPI.
+The blank-display fault was a disconnected display 5V lead; OE is now
+3.29V on the correct FPGA23. Front overlays DEADBEEF until the first
+debounced key, which is processed normally. Model and board simulations
+cover the banner, rejected bounce, first key and clear-to-zero behavior.
+Physical keypad tests remain pending.

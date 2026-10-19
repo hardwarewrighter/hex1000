@@ -1,4 +1,7 @@
 l:Map : Int
+l:BootDigits : Int
+l:s_tartup : (Truthy a, Num b, Num c, Truthy d) => (a, b, c) -> d
+l:d_isplay : Truthy a => (a, Int) -> Int
 l:ScanReset : (Int, Int, Int, Int, Int, Int)
 l:KeyReset : (Int, Int, Int)
 l:SpiReset : (Int, Int, Int, Int, Int, Int)

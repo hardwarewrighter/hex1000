@@ -51,10 +51,15 @@ def detect():
         raise RuntimeError('Refuse programming: need exactly one GW1NZ-1 ID 0x0100681b')
     return output
 
+def verify_programming(output):
+    if not re.search(r"CRC check\s*:\s*Success", output) or re.search(r"CRC check\s*:\s*FAIL", output):
+        raise RuntimeError("Programming not verified: missing successful CRC or reported CRC failure")
+
 def main():
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('action',choices=['test','build','detect','load','flash'])
     parser.add_argument('--tools')
+    parser.add_argument('--freq', type=int, default=6000000, help='JTAG frequency in Hz')
     args=parser.parse_args()
     if args.tools: os.environ['PATH']=str(Path(args.tools).resolve())+os.pathsep+os.environ['PATH']
     constraints();OUT.mkdir(parents=True,exist_ok=True)
@@ -92,7 +97,7 @@ def main():
              '--sdc',BOARD/'calculator.sdc','--report',OUT/'timing.json'],'pnr.log')
         report=json.loads((OUT/'timing.json').read_text())
         if any(c['achieved']<c['constraint'] for c in report['fmax'].values()): raise RuntimeError('Timing failed')
-        run(['gowin_pack','-c','-d','GW1NZ-1','--sspi_as_gpio','--mspi_as_gpio','--cpu_as_gpio',
+        run(['gowin_pack','-d','GW1NZ-1','--sspi_as_gpio','--mspi_as_gpio','--cpu_as_gpio',
              '-o',OUT/'calculator.fs',OUT/'pnr.json'],'pack.log')
         (OUT/'manifest.json').write_text(json.dumps({'inputs':{str(p.relative_to(ROOT)):sha(p) for p in SOURCES},
              'bitstream_sha256':sha(OUT/'calculator.fs')},indent=2)+'\n')
@@ -104,8 +109,9 @@ def main():
             raise RuntimeError('Stale source or modified image; rebuild before programming')
         identity=detect()
         mode='--write-flash' if args.action=='flash' else '--write-sram'
-        output=run(['openFPGALoader','-b','tangnano1k',mode,OUT/'calculator.fs'])
+        output=run(['openFPGALoader','-b','tangnano1k','--freq',str(args.freq),mode,OUT/'calculator.fs'])
         (OUT/f'{args.action}.log').write_text(identity+output)
+        verify_programming(output)
         print(f'Calculator {args.action} completed; peripheral operation still needs user testing')
 
 if __name__=='__main__': main()

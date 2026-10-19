@@ -1,5 +1,5 @@
 "fr:" u_se< "Front"
-h:t_race := { (i, scan, key, digits, previous, spi, trace) ->
+h:t_race := { (i, scan, key, digits, previous, spi, had, trace) ->
   cols := 15 - (i >= 720) & i < 960
   equal := ((i >= 96) & i < 288) | (i >= 480) & i < 672
   ops := 15 - 8 * equal
@@ -10,12 +10,14 @@ h:t_race := { (i, scan, key, digits, previous, spi, trace) ->
   scan1 := 4 fr:s_can (scan, cols, ops)
   key1 := fr:k_ey (key, accepted, r)
   d1 := fr:d_igits (digits, previous, o, r)
-  spi1 := fr:s_pi (spi, digits)
+  (old_phase, old_key, old_last) := key
+  had1 := fr:s_tartup (had, old_phase, accepted)
+  spi1 := fr:s_pi (spi, fr:d_isplay (had, digits))
   (t1, r1, s1, c1, n1, a1) := scan1
   (ph, code, last) := key1
   (p, w, sh, di, cl, ld) := spi1
-  record := cols c_at ops c_at o c_at r c_at t1 c_at r1 c_at s1 c_at c1 c_at n1 c_at a1 c_at ph c_at code c_at last c_at (fr:k_inputs (key1, r)) c_at (32 d_ecode r_ev d1) c_at p c_at w c_at sh c_at di c_at cl c_at ld
-  (i + 1, scan1, key1, d1, r, spi1, trace c_at 1 21 r_eshape record)
+  record := cols c_at ops c_at o c_at r c_at t1 c_at r1 c_at s1 c_at c1 c_at n1 c_at a1 c_at ph c_at code c_at last c_at (fr:k_inputs (key1, r)) c_at (32 d_ecode r_ev d1) c_at p c_at w c_at sh c_at di c_at cl c_at ld c_at had1
+  (i + 1, scan1, key1, d1, r, spi1, had1, trace c_at 1 22 r_eshape record)
 }
-(i, scan, key, digits, previous, spi, trace) := 1100 'h:t_race p_ower (0, fr:ScanReset, fr:KeyReset, 8 r_eshape 0, 0, fr:SpiReset, 0 21 r_eshape 0)
+(i, scan, key, digits, previous, spi, had, trace) := 1100 'h:t_race p_ower (0, fr:ScanReset, fr:KeyReset, 8 r_eshape 0, 0, fr:SpiReset, 0, 0 22 r_eshape 0)
 trace

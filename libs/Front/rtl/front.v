@@ -43,6 +43,11 @@ module front #(parameter ROW_CLOCKS = 256)(
   reg [1:0] phase;
   reg [4:0] key;
   reg last_equals;
+  reg have_key;
+  always @(posedge clk) begin
+    if (rst) have_key <= 0;
+    else if (phase == 0 && |accepted) have_key <= 1;
+  end
   reg [4:0] first_code;
   reg found;
   integer i;
@@ -102,6 +107,8 @@ module front #(parameter ROW_CLOCKS = 256)(
   reg [3:0] word_index;
   reg [15:0] shift;
   reg [15:0] word_value;
+  wire [39:0] display_digits = have_key ? digits :
+      {5'd29,5'd30,5'd26,5'd29,5'd27,5'd30,5'd30,5'd31};
   always @* begin
     case (word_index)
       0: word_value=16'h0c01;
@@ -110,7 +117,7 @@ module front #(parameter ROW_CLOCKS = 256)(
       3: word_value=16'h0b07;
       4: word_value=16'h0a04;
       default: word_value = {4'b0, (word_index-4'd4), 1'b0,
-                             segments(digits[(word_index-5)*5 +: 5])};
+                             segments(display_digits[(word_index-5)*5 +: 5])};
     endcase
   end
   always @(posedge clk) begin

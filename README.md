@@ -28,7 +28,10 @@ debounce timing. The complete image fits and passes routed timing.
 [First wired test](docs/calculator-test.md) explains the persistent flash
 image and how to unplug, wire, reconnect and test. TXS0108E users must
 use the updated OE wire on FPGA pin 23 and a 10 kohm pull-down. The
-peripherals remain disconnected until the user performs that test.
+display and TXS0108E now show `dEAdbEEF` at the calculator SPI rate;
+the keypad and operator buttons remain disconnected. The calculator
+starts with that banner until the first debounced key, which is processed
+normally. `==` clears to zero without restoring the banner.
 
 Overflow still wraps; OuErFLO and ROM-side RAM clearing remain planned.
 The Hex1000, Radix and Panel sources and original core are unchanged.

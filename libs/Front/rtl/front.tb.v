@@ -11,7 +11,7 @@ module tb;
  front #(.ROW_CLOCKS(4)) dut(clk,rst,cols,ops,o,r,rows,k,di,cl,ld);
  integer file,count,i;
  integer cols_i,ops_i,o_i,r_i,tick_i,row_i,scan_i,candidate_i,stable_i,accepted_i;
- integer phase_i,key_i,last_i,k_i,p_i,w_i,sh_i,di_i,cl_i,ld_i;
+ integer phase_i,key_i,last_i,k_i,p_i,w_i,sh_i,di_i,cl_i,ld_i,had_i;
  reg [63:0] digits_i;
  initial begin
    file=$fopen("work/board/calculator/front-trace.txt","r");
@@ -19,10 +19,10 @@ module tb;
    @(posedge clk);#1;rst=0;
    i=0;
    while(!$feof(file)) begin
-     count=$fscanf(file,"%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d\n",
+     count=$fscanf(file,"%d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d %d\n",
        cols_i,ops_i,o_i,r_i,tick_i,row_i,scan_i,candidate_i,stable_i,accepted_i,
-       phase_i,key_i,last_i,k_i,digits_i,p_i,w_i,sh_i,di_i,cl_i,ld_i);
-     if(count!=21) $fatal(1,"bad trace row %0d fields %0d",i,count);
+       phase_i,key_i,last_i,k_i,digits_i,p_i,w_i,sh_i,di_i,cl_i,ld_i,had_i);
+     if(count!=22) $fatal(1,"bad trace row %0d fields %0d",i,count);
      @(negedge clk);cols=cols_i;ops=ops_i;o=o_i;r=r_i;
      @(posedge clk);#1;
      if(dut.tick!==tick_i[7:0] || dut.row!==row_i[1:0] || dut.scan!==scan_i[15:0] ||
@@ -30,6 +30,7 @@ module tb;
        $fatal(1,"scanner/debounce mismatch at clock %0d",i);
      if(dut.phase!==phase_i[1:0] || dut.key!==key_i[4:0] || dut.last_equals!==last_i[0] || k!==k_i[4:0])
        $fatal(1,"key/equals handshake mismatch at clock %0d",i);
+     if(dut.have_key!==had_i[0]) $fatal(1,"startup latch mismatch at clock %0d",i);
      if(dut.digits!==digits_i[39:0]) $fatal(1,"digit capture mismatch at clock %0d",i);
      if(dut.spi_phase!==p_i[5:0] || dut.word_index!==w_i[3:0] || dut.shift!==sh_i[15:0] ||
        di!==di_i[0] || cl!==cl_i[0] || ld!==ld_i[0])
