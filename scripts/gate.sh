@@ -10,3 +10,9 @@ scripts/check-core.sh
 python3 scripts/test-board-selftest.py
 python3 scripts/board-selftest.py test
 python3 scripts/board-calculator.py test
+
+if command -v iverilog >/dev/null && command -v vvp >/dev/null; then
+    python3 scripts/keypad-probe.py test
+else
+    echo "SKIPPED raw keypad diagnostic: iverilog/vvp not on PATH"
+fi

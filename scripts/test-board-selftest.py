@@ -55,6 +55,15 @@ class CalculatorGuards(unittest.TestCase):
                 calculator.verify_programming(text)
         calculator.verify_programming('CRC check: Success')
 
+    def test_rejects_implicit_or_inverted_row_enable(self):
+        for replacement in ['', ' TO=INV']:
+            with tempfile.TemporaryDirectory() as tmp:
+                root=Path(tmp)
+                text=(calculator.BOARD/'calculator.cst').read_text()
+                (root/'calculator.cst').write_text(text.replace(' TO=SIG', replacement, 1))
+                with patch.object(calculator,'BOARD',root), self.assertRaises(RuntimeError):
+                    calculator.constraints()
+
     def test_approved_constraints(self):
         calculator.constraints()
 

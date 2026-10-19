@@ -39,9 +39,12 @@ def constraints():
         raise RuntimeError('Calculator pin map does not match approved physical wiring')
     if len(set(EXPECTED.values()))!=len(EXPECTED): raise RuntimeError('Duplicate pins')
     if 'CLOCK_LOC "machine_clk" BUFG;' not in text: raise RuntimeError('Missing global machine clock constraint')
+    for i in range(4):
+        if f'IO_PORT "pad_row_n[{i}]" IO_TYPE=LVCMOS33 DRIVE=4 TO=SIG;' not in text:
+            raise RuntimeError("Row output-enable polarity must be explicit TO=SIG")
     for line in text.splitlines():
         if not line.strip(): continue
-        if not re.fullmatch(r'(IO_LOC ".+" \d+;|IO_PORT ".+" IO_TYPE=LVCMOS33(?: PULL_MODE=UP| DRIVE=4)?;|CLOCK_LOC "machine_clk" BUFG;)',line):
+        if not re.fullmatch(r'(IO_LOC ".+" \d+;|IO_PORT ".+" IO_TYPE=LVCMOS33(?: PULL_MODE=UP| DRIVE=4(?: TO=SIG)?)?;|CLOCK_LOC "machine_clk" BUFG;)',line):
             raise RuntimeError(f'Unexpected constraint: {line}')
 
 def detect():
@@ -95,6 +98,11 @@ def main():
              '--vopt','sspi_as_gpio','--vopt',f'cst={BOARD/"calculator.cst"}',
              '--json',OUT/'synth.json','--write',OUT/'pnr.json','--freq','27',
              '--sdc',BOARD/'calculator.sdc','--report',OUT/'timing.json'],'pnr.log')
+        routed=json.loads((OUT/'pnr.json').read_text())
+        row_buffers=[c for m in routed['modules'].values() for n,c in m['cells'].items()
+                     if c['type']=='TBUF' and n.startswith('pad_row_n')]
+        if len(row_buffers)!=4 or any('&TO=SIG' not in c['attributes'] for c in row_buffers):
+            raise RuntimeError('Routed row buffers lost explicit output-enable polarity')
         report=json.loads((OUT/'timing.json').read_text())
         if any(c['achieved']<c['constraint'] for c in report['fmax'].values()): raise RuntimeError('Timing failed')
         run(['gowin_pack','-d','GW1NZ-1','--sspi_as_gpio','--mspi_as_gpio','--cpu_as_gpio',

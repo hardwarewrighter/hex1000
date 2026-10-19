@@ -2,10 +2,10 @@
   "date": "2026-10-19",
   "device": "GW1NZ-1",
   "idcode": "0x0100681b",
-  "bitstream_sha256": "9a74315f97e9ba7ce4a7b92cd6536a03381ec82196bbae66c80db0cf48dacb5f",
+  "bitstream_sha256": "6f85328285c219e40ee9a672047d4337389795dbce264b9a145fd4e2ba4872a6",
   "input_sha256": {
     "boards/tangnano1k/calculator.v": "60bebb461aef1bc75a531598129da665247dbdb90541a1778f5257210e5380cf",
-    "boards/tangnano1k/calculator.cst": "06b63247c88feecb4c4ea989e56382b5cf8d2824273c36fdc0ad32b317145bf3",
+    "boards/tangnano1k/calculator.cst": "2c4061835c7c7fdc7b6ac73cce07031b00ce70b3dc5b2e1e904429a896fb8b25",
     "boards/tangnano1k/calculator.sdc": "7377d85f914580c03a6ec07208f7c66a0c32b13d00a986366bdb599acd1b18ba",
     "libs/Front/rtl/front.v": "8d36e7796bc19a1a02ac4afaffac38e8c74be1d8ddb9de586ee4af42f451d269",
     "libs/Hex1000/rtl/hex1000.v": "b37d5832bea68589497b340cef014153fbf79738b6d22cb97a101d36aafb6caf"
@@ -58,11 +58,11 @@
     "second consecutive equals clears to 0"
   ],
   "txs_oe": "FPGA23 after about 39 ms; 10 kohm pull-down, no manual jumper",
-  "gate": "PASS: 25 library baselines, 184 doc examples, ROM/core checks, self-test and production/accelerated panel simulations; seven programming guards pass after CRC regression fix",
+  "gate": "PASS: 25 baselines, 184 doc examples, eight programming guards, core/self-test/panel simulations and all-16-position raw keypad diagnostic simulation",
   "programming": "Persistent internal flash, successful erase/write and CRC check",
-  "physical_peripherals": "Display and TXS0108E connected; keypad and operators disconnected",
-  "cold_boot": "New calculator flash CRC success; user cold-boot observation pending",
-  "flash_log": "Jtag frequency : requested 6.00MHz    -> real 6.00MHz   \nindex 0:\n\tidcode 0x100681b\n\tmanufacturer Gowin\n\tfamily GW1NZ\n\tmodel  GW1NZ-1\n\tirlength 8\nwrite to flash\nJtag frequency : requested 1.00MHz    -> real 1.00MHz   \nParse file Parse /disk1/github/hardwarewrighter/hex1000/work/board/calculator/calculator.fs: \nDone\nDONE\nJtag frequency : requested 2.50MHz    -> real 2.00MHz   \nErase SRAM DONE\nErase FLASH DONE\n\nErasing FLASH: [==================================================] 100.00%\n\nDone\n\nwrite Flash: [====================                              ] 39.76%\n\nwrite Flash: [================================================  ] 94.58%\n\nwrite Flash: [==================================================] 100.00%\n\nDone\nCRC check: Success\n",
+  "physical_peripherals": "Display, TXS0108E, keypad and operators connected; user confirmed addition, subtraction, multiplication and negative result",
+  "cold_boot": "Corrected calculator flash reload passed CRC; separate unplug/replug observation not yet reported",
+  "flash_log": "Jtag frequency : requested 6.00MHz    -> real 6.00MHz   \nindex 0:\n\tidcode 0x100681b\n\tmanufacturer Gowin\n\tfamily GW1NZ\n\tmodel  GW1NZ-1\n\tirlength 8\nwrite to flash\nJtag frequency : requested 1.00MHz    -> real 1.00MHz   \nParse file Parse /disk1/github/hardwarewrighter/hex1000/work/board/calculator/calculator.fs: \nDone\nDONE\nJtag frequency : requested 2.50MHz    -> real 2.00MHz   \nErase SRAM DONE\nErase FLASH DONE\n\nErasing FLASH: [==================================================] 100.00%\n\nDone\n\nwrite Flash: [============================                      ] 54.22%\n\nwrite Flash: [==================================================] 100.00%\n\nDone\nCRC check: Success\n",
   "user_observations": [
     {
       "date": "2026-10-19",
@@ -95,8 +95,45 @@
       "date": "2026-10-19",
       "finding": "Display 5V wire disconnected; reconnecting it produced eight zeros",
       "diagnostic": "User confirmed dEAdbEEF from SRAM display-only fixture at approximately 482 kHz SPI"
+    },
+    {
+      "date": "2026-10-19",
+      "calculator_keys_before_fix": "S1-S4 -> 89AB, S5-S8 -> CDEF, S9-S12 -> 4567, S13-S16 -> CDEF",
+      "raw_probe_original_S1": [
+        "00010000",
+        "00020001",
+        "00030001",
+        "00040001"
+      ],
+      "raw_probe_original_S5": [
+        "00010001",
+        "00020000",
+        "00030001",
+        "00040001"
+      ],
+      "raw_probe_TO_SIG_S1": [
+        "00010001",
+        "00020000",
+        "00030000",
+        "00040000"
+      ],
+      "calculations_after_fix": [
+        "F + F = 1E",
+        "33 - 7 = 2C",
+        "7 * F = 69",
+        "1 - 2 = FFFFFFFF"
+      ],
+      "operator_labels": "Buttons not yet labeled; initial 33 x 7 report corrected by user to 33 - 7",
+      "S13": "User confirmed zero, matching intended bottom row 0123"
     }
   ],
   "packing": "Uncompressed gowin_pack image; successful flash CRC. Compressed version loaded SRAM with CRC success but flash reload read 0x4682 versus expected 0x8846 at both 6 MHz and 1 MHz JTAG.",
-  "failed_compressed_flash_log": "Jtag frequency : requested 6.00MHz    -> real 6.00MHz   \nindex 0:\n\tidcode 0x100681b\n\tmanufacturer Gowin\n\tfamily GW1NZ\n\tmodel  GW1NZ-1\n\tirlength 8\nwrite to flash\nJtag frequency : requested 6.00MHz    -> real 6.00MHz   \nParse file Parse /disk1/github/hardwarewrighter/hex1000/work/board/calculator/calculator.fs: \nDone\nDONE\nJtag frequency : requested 2.50MHz    -> real 2.00MHz   \nErase SRAM DONE\nErase FLASH DONE\n\nErasing FLASH: [==================================================] 100.00%\n\nDone\n\nwrite Flash: [==================================================] 100.00%\n\nDone\nCRC check : FAIL\nRead: 0x00004682 checksum: 0x8846\n\n"
+  "failed_compressed_flash_log": "Jtag frequency : requested 6.00MHz    -> real 6.00MHz   \nindex 0:\n\tidcode 0x100681b\n\tmanufacturer Gowin\n\tfamily GW1NZ\n\tmodel  GW1NZ-1\n\tirlength 8\nwrite to flash\nJtag frequency : requested 6.00MHz    -> real 6.00MHz   \nParse file Parse /disk1/github/hardwarewrighter/hex1000/work/board/calculator/calculator.fs: \nDone\nDONE\nJtag frequency : requested 2.50MHz    -> real 2.00MHz   \nErase SRAM DONE\nErase FLASH DONE\n\nErasing FLASH: [==================================================] 100.00%\n\nDone\n\nwrite Flash: [==================================================] 100.00%\n\nDone\nCRC check : FAIL\nRead: 0x00004682 checksum: 0x8846\n\n",
+  "row_enable": "Explicit TO=SIG on all four row TBUFs; build checks routed attributes. Installed packer TO=INV default caused inverse row selection.",
+  "physical_calculations": [
+    "F + F = 1E",
+    "33 - 7 = 2C",
+    "7 * F = 69",
+    "1 - 2 = FFFFFFFF"
+  ]
 }

@@ -44,4 +44,14 @@ The blank-display fault was a disconnected display 5V lead; OE is now
 3.29V on the correct FPGA23. Front overlays DEADBEEF until the first
 debounced key, which is processed normally. Model and board simulations
 cover the banner, rejected bounce, first key and clear-to-zero behavior.
-Physical keypad tests remain pending.
+Physical keypad diagnosis and confirmed arithmetic follow below.
+
+## Physical keypad diagnosis, 2026-10-19
+
+A raw SRAM probe showed inverse row selection on S1/S5. Installed
+apycula TBUF defaults select `TO=INV`; explicit `TO=SIG` survives
+routing and corrects the observed S1 sequence. Apply that constraint
+to all four calculator rows, guard it against regression, and retain
+the agreed wiring and key map. The corrected calculator was flashed with CRC success. User-observed
+F+F=1E, 33-7=2C, 7*F=69 and 1-2=FFFFFFFF confirm arithmetic through
+the physical keypad. Full key coverage and a separate cold boot remain.

@@ -41,3 +41,7 @@ board-calculator +args:
 # Display/shifter only: test/build/load; SRAM diagnostic, no flash writes.
 display-probe +args:
     python3 scripts/display-probe.py {{args}}
+
+# Raw keypad rows/columns on display; temporary SRAM diagnostic.
+keypad-probe +args:
+    python3 scripts/keypad-probe.py {{args}}

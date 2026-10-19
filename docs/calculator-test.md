@@ -7,7 +7,8 @@ release, 12+34=46, A*B=6E, 5-7=FFFFFFFE, C0DE+BEEF=17FCD,
 second-equals clear and MAX7219 command/segment framing. The production
 256-clocks-per-row debounce setting is tested, not just an accelerated
 simulation. The user confirmed `dEAdbEEF` with the display-only fixture
-at the calculator SPI rate. Physical keypad tests remain pending.
+at the calculator SPI rate. Corrected keypad arithmetic is now confirmed
+physically; see the results below.
 
 ## Programming complete
 
@@ -20,7 +21,7 @@ flash with **CRC check: Success** using an uncompressed image. It adds a DEADBEE
 debounced key. That key is processed normally. Banner, first-key and
 clear behavior are checked in the X_eTaL model and board simulation.
 The display-only fixture was confirmed physically; the updated calculator
-and its first physical keypad calculation require user observation.
+has since passed the physical calculations recorded below.
 
 ## Before unplugging
 
@@ -75,10 +76,10 @@ existing ROM's Clear key. Power cycling initializes RAM at configuration.
 Overflow still wraps modulo eight hex digits; OuErFLO is future work.
 There is no UART in this image.
 
-The external keypad, display module, level shifter and power draw cannot
-be fully validated while they are disconnected. A successful flash write
-is programming evidence; the first cold boot and these wired tests are
-reported separately as user observations.
+Flash CRC is programming evidence. The connected keypad, display and
+level shifter have now passed the physical calculations below. Complete
+key coverage, supply current and a separate unplug/replug cold boot have
+not been recorded.
 
 ## Reproduce
 
@@ -108,3 +109,37 @@ requires explicit CRC success, since this loader can return exit status
 zero after reporting a CRC failure. A regression test covers that case.
 Use `just board-calculator flash --freq 1000000` to reproduce the
 successful programming settings.
+
+## Keypad row-enable correction
+
+The first wired keypad test produced incorrect rows. A raw row/column
+probe found S1 active during rows 2/3/4 and S5 during rows 1/3/4:
+the selected row was the only inactive row. Setting `TO=SIG` explicitly
+on each row TBUF corrects the installed packer default `TO=INV`.
+The user confirmed the corrected S1 probe sequence. The calculator uses
+the same constraint, with guards rejecting missing/inverted polarity
+and checking that all four routed row buffers retain `TO=SIG`.
+The corrected calculator was programmed into persistent flash with
+CRC success at 1 MHz JTAG. The full gate passed, including eight
+programming guards and the raw keypad diagnostic.
+
+## Confirmed physical calculations
+
+On 2026-10-19, the user reported these hexadecimal results after the
+row-enable fix:
+
+| Input | Display |
+| ----- | ------- |
+| F + F = | 1E |
+| 33 - 7 = | 2C |
+| 7 * F = | 69 |
+| 1 - 2 = | FFFFFFFF |
+
+FFFFFFFF is the 32-bit two's-complement representation of -1.
+The operator buttons are not labeled yet. The user corrected the initial
+33 * 7 report to subtraction; it is not a multiplication failure.
+Label K1 +, K2 -, K3 *, K4 =. S13 is intentionally zero: the keypad
+rows from top to bottom are CDEF, 89AB, 4567, 0123.
+These are user-observed hardware results, separate from simulation.
+A complete physical test of every key and a separate unplug/replug
+cold boot remain to be recorded.

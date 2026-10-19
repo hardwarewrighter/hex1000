@@ -2,6 +2,15 @@
 
 ## 2026-10-19
 
+- Diagnostics: add a temporary raw keypad row/column display probe,
+  test all 16 positions and SPI framing, and load SRAM with CRC success
+  to investigate reported duplicate and swapped rows without remapping.
+  Confirm inverted row enables physically, set explicit TO=SIG on
+  diagnostic/calculator row buffers, and guard constraints/routed cells;
+  program corrected persistent calculator flash with CRC success.
+  Record user-confirmed addition, subtraction, multiplication and
+  negative-result display, plus the unlabeled operator button mapping.
+
 - Calculator: show DEADBEEF until the first debounced key, process that
   key normally and keep equals-equals clear at zero; review updated Front
   regression/type baselines and test model/RTL startup equivalence.

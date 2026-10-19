@@ -1,0 +1,50 @@
+{
+  "date": "2026-10-19",
+  "device": "GW1NZ-1",
+  "idcode": "0x0100681b",
+  "programming": "SRAM only; calculator flash preserved",
+  "crc": "Success",
+  "image_sha256": "add324d94abdbb9eb0d1c3585c93ade7de8b520cab69a9fed73cd753ff75abc1",
+  "inputs": {
+    "boards/tangnano1k/keypad-probe.v": "83b6574d0caff7d3b07d96ab502613c0c9af5df61e3136235d20c12ef705e58f",
+    "boards/tangnano1k/keypad-probe.cst": "80bb33b8a708b72070e8f7e1a7f5959fac664a8fb8b410a116d9de99e1ee12ae",
+    "boards/tangnano1k/keypad-probe.sdc": "0f1dcf86704de48f1e150945071830fc94fb6bfa3d7f9aa4228e36fbefd6e3fa"
+  },
+  "timing": {
+    "clk_IBUF_I_O": {
+      "achieved": 168.37850952148438,
+      "constraint": 27
+    },
+    "probe_clk": {
+      "achieved": 140.0560302734375,
+      "constraint": 0.9642857313156128
+    }
+  },
+  "load_log": "Jtag frequency : requested 6.00MHz    -> real 6.00MHz   \nindex 0:\n\tidcode 0x100681b\n\tmanufacturer Gowin\n\tfamily GW1NZ\n\tmodel  GW1NZ-1\n\tirlength 8\nwrite to ram\nJtag frequency : requested 6.00MHz    -> real 6.00MHz   \nParse file Parse /disk1/github/hardwarewrighter/hex1000/work/board/keypad-probe/probe.fs: \nDone\nDONE\nErase SRAM Load SRAM \nLoad SRAM: [==================================================] 100.00%\n\nDone\nDONE\nCRC check: Success\n",
+  "simulation": "PASS SPI startup row 1 and no columns: 00010000\nPASS all 16 keys across four rows; inactive rows high impedance; row-short visible independently of key mapping\n/disk1/github/hardwarewrighter/hex1000/boards/tangnano1k/keypad-probe.tb.v:52: $finish called at 13602046000 (1ps)\n",
+  "physical_observation": "User confirmed S1 held: 00010001, 00020000, 00030000, 00040000 after TO=SIG correction",
+  "trigger": "Calculator inputs S1-S4 -> 89AB; S5-S8 -> CDEF; S9-S12 -> 4567; S13-S16 -> CDEF; user confirms keypad row labels and wiring appears correct",
+  "original_probe": {
+    "manifest": {
+      "inputs": {
+        "boards/tangnano1k/keypad-probe.v": "83b6574d0caff7d3b07d96ab502613c0c9af5df61e3136235d20c12ef705e58f",
+        "boards/tangnano1k/keypad-probe.cst": "a93af6b669e5e946d03f3778c245433445f296b196d4e36835bc17361d5b231a",
+        "boards/tangnano1k/keypad-probe.sdc": "0f1dcf86704de48f1e150945071830fc94fb6bfa3d7f9aa4228e36fbefd6e3fa"
+      },
+      "image": "e10bd4b8cc6f2c3f002cd1eb834baddb4b89f86b69e22dd112d31d07eecdfa1a"
+    },
+    "user_S1_held": [
+      "00010000",
+      "00020001",
+      "00030001",
+      "00040001"
+    ],
+    "user_S5_held": [
+      "00010001",
+      "00020000",
+      "00030001",
+      "00040001"
+    ]
+  },
+  "finding": "Installed apycula default_tbuf_attrs uses TO=INV. Explicit TO=SIG reaches all four routed TBUF cells and corrects physical S1 row detection."
+}

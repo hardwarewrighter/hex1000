@@ -126,3 +126,12 @@ project's additions. Regenerate using `just wiring-diagram`; its script
 reads hex1000.net and rejects duplicate pins or assignments absent from
 the documented side headers. PNG rendering uses rsvg-convert when on
 PATH; SVG generation needs only Python 3.
+
+## Row-enable polarity
+
+The Nano 1K constraints explicitly set `TO=SIG` on all four row
+outputs. The installed bitstream packer defaults TBUF enable routing
+to `TO=INV`, which inverted the intended row selection on hardware.
+The raw diagnostic confirmed the corrected S1 behavior with `TO=SIG`.
+Keep the existing pins and 1 kohm resistors; this fix changes the FPGA
+output-enable configuration, not the keypad wiring or key assignments.
